@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+@keyframes shake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+    100% { transform: translateX(0); }
+}
+
+.shake-animation {
+    animation: shake 0.5s ease-in-out;
+}
+
+.scroll-container {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.scroll-container i {
+    margin-right: 20px;
+}
+
+.text-color-primary {
+    color: #E31337;
+}
+
+.text-color-secondary {
+    color: #D50D3B;
+}
+
+.text-color-accent {
+    color: #2ECF6F;
+}
+
+.text-color-background {
+    color: #B8E6FE;
+}
+
+.text-color-titles {
+    color: #2c2c2c;
+}
+
+.red-primary {
+    background: #E31337;
+}
+
+.carousel-container {
+    display: flex;
+    overflow-x: scroll;
+    gap: 1rem;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+
+.carousel-container::-webkit-scrollbar {}
+
+.card {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+}
+
+.carousel-wrapper {}
