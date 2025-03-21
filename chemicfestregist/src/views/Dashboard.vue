@@ -7,7 +7,7 @@
             <router-link 
                         to="/" class="text-color-primary font-semibold hover:underline">Logout</router-link>
             <router-link 
-                        to="/registrasi" class="text-color-primary font-semibold hover:underline">Lupa Password</router-link>
+                        to="/forgot" class="text-color-primary font-semibold hover:underline">Lupa Password</router-link>
         </div>
     </header>
   
@@ -59,7 +59,7 @@
     try {
       // Ambil base URL dari environment variable (Vite)
       const apiUrl = import.meta.env.VITE_API_BASE;
-      const response = await fetch(`${apiUrl}/ticket-history`, {
+      const response = await fetch(`${apiUrl}/api/get-ticket`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

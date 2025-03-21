@@ -151,6 +151,7 @@ export default {
       const role = document.getElementById("grid-role").value;
 
       try {
+        sessionStorage.setItem("userData", JSON.stringify({ name, username, email, phoneNumber, role }));
         const apiUrl = import.meta.env.VITE_API_BASE;
         const response = await axios.post(`${apiUrl}/api/register`, {
           name,
@@ -165,9 +166,13 @@ export default {
         alert(response.data.message);
         window.location.href = "/login";
       } catch (error) {
-        console.error("Error registrasi:", error.response ? error.response.data : error);
-        alert(error.response ? error.response.data.message : "Terjadi kesalahan saat registrasi");
-      }
+  console.error("Error registrasi:", error.response ? JSON.stringify(error.response.data) : error);
+  const errorMessage = error.response && error.response.data && error.response.data.message 
+    ? error.response.data.message 
+    : "Terjadi kesalahan saat registrasi";
+  alert(errorMessage);
+}
+
     });
   }
 }

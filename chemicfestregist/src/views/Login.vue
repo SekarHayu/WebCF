@@ -61,10 +61,10 @@
 </template>
 
 <script>
-import axios from 'axios';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import maskot from '@/assets/img/chemicfest9_maskot.png';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'Login',
@@ -78,6 +78,7 @@ export default {
     const scaffold = document.getElementById("scaffold");
     const closePopup = document.getElementById("closePopup");
 
+    // Mengelola popup scaffold
     settingsIcon.addEventListener("click", function () {
       scaffold.classList.remove("hidden");
       setTimeout(() => { scaffold.classList.remove("translate-y-full"); }, 10);
@@ -95,32 +96,35 @@ export default {
       }
     });
 
+    // Inisialisasi AOS
     AOS.init();
 
-    // Menangani submit form login menggunakan axios
+    // Ambil data dari Session Storage (jika ada)
+    const userData = JSON.parse(sessionStorage.getItem("userData"));
+    if (userData) {
+      document.getElementById("grid-email").value = userData.email || "";
+      alert("Selamat datang kembali, " + userData.email + "!");
+      this.$router.push('/dashboard'); // Redirect langsung kalau data ada
+    }
+
+    // Menangani submit form login
     const loginForm = document.getElementById("loginForm");
-    loginForm.addEventListener("submit", async function (e) {
+    loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("grid-email").value;
-      const password = document.getElementById("grid-password").value;
 
-      try {
-        const apiUrl = import.meta.env.VITE_API_BASE;
-        const response = await axios.post(`${apiUrl}/api/login`, {
-          email: email,
-          password: password
-        });
-        console.log("Login sukses:", response.data);
-        alert(response.data.message);
-        this.$router.push('/dashboard');
-      } catch (error) {
-        console.error("Error login:", error.response ? error.response.data : error);
-        alert(error.response ? error.response.data.message : "Terjadi kesalahan saat login");
-      }
+      // Simpan data ke Session Storage
+      sessionStorage.setItem("userData", JSON.stringify({ email }));
+
+      console.log("Login sukses:", { email });
+      alert("Login berhasil! Selamat datang, " + email + "!");
+      this.$router.push('/dashboard');
     });
   },
 }
 </script>
+
+
 
 
 <style>
