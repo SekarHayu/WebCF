@@ -1,9 +1,18 @@
 <template>
   <div class="bg-gray-300 flex justify-center items-center min-h-screen">
     <!-- Header -->
-    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10">
-      <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
-    </header>
+    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
+  <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
+  <div class="flex gap-4">
+    <router-link 
+        @click.prevent="handleLogin"
+        to="/login" 
+        class="text-color-primary font-semibold hover:underline"
+      >Login</router-link>
+    <router-link 
+                to="/registrasi" class="text-color-primary font-semibold hover:underline">Registrasi</router-link>
+  </div>
+</header>
 
     <!-- Main Content -->
     <main class="flex flex-col items-center justify-center">
@@ -118,9 +127,6 @@ import senja from '@/assets/img/senja.png';
 import batu from '@/assets/img/bebatuan.png';
 import maskot from '@/assets/img/chemicfest9_maskot.png';
 
-
-
-
 export default {
   name: 'Home',
   data() {
@@ -158,56 +164,69 @@ export default {
         alert(error.response ? error.response.data.message : "Terjadi kesalahan saat logout");
       }
     },
+    handleLogin() {
+      const sessionId = localStorage.getItem('sessionId');
+      if (sessionId) {
+        this.$router.push('/dashboard');
+      } else {
+        this.$router.push('/login');
+      }
+    },
+    updateTimer() {
+      const targetDate = new Date("May 17, 2025 00:00:00").getTime();
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+
+      if (distance < 0) {
+        clearInterval(this.timer);
+        document.getElementById("days").textContent = "0";
+        document.getElementById("hours").textContent = "0";
+        document.getElementById("minutes").textContent = "0";
+        document.getElementById("seconds").textContent = "0";
+      }
+    },
   },
   mounted() {
-    // Inisialisasi AOS
-    import('aos').then((AOS) => {
-      AOS.init();
-    });
-  },
-};
-document.addEventListener("DOMContentLoaded", function () {
-        const settingsIcon = document.getElementById("cogs");
-        const scaffold = document.getElementById("scaffold");
-        const closePopup = document.getElementById("closePopup");
-        settingsIcon.addEventListener("click", function () {
-          scaffold.classList.remove("hidden");
-          setTimeout(() => { scaffold.classList.remove("translate-y-full"); }, 10);
-        });
-        closePopup.addEventListener("click", function () {
-          scaffold.classList.add("translate-y-full");
-          setTimeout(() => { scaffold.classList.add("hidden"); }, 300);
-        });
-        scaffold.addEventListener("click", function (event) {
-          if (event.target === scaffold) {
-            scaffold.classList.add("translate-y-full");
-            setTimeout(() => { scaffold.classList.add("hidden"); }, 300);
-          }
-        });
+    AOS.init();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const settingsIcon = document.getElementById("cogs");
+      const scaffold = document.getElementById("scaffold");
+      const closePopup = document.getElementById("closePopup");
+
+      settingsIcon.addEventListener("click", () => {
+        scaffold.classList.remove("hidden");
+        setTimeout(() => { scaffold.classList.remove("translate-y-full"); }, 10);
       });
 
-      const targetDate = new Date("May 17, 2025 00:00:00").getTime();
-      function updateTimer() {
-        const now = new Date().getTime();
-        const distance = targetDate - now;
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById("days").textContent = days;
-        document.getElementById("hours").textContent = hours;
-        document.getElementById("minutes").textContent = minutes;
-        document.getElementById("seconds").textContent = seconds;
-        if (distance < 0) {
-          clearInterval(timer);
-          document.getElementById("days").textContent = "0";
-          document.getElementById("hours").textContent = "0";
-          document.getElementById("minutes").textContent = "0";
-          document.getElementById("seconds").textContent = "0";
+      closePopup.addEventListener("click", () => {
+        scaffold.classList.add("translate-y-full");
+        setTimeout(() => { scaffold.classList.add("hidden"); }, 300);
+      });
+
+      scaffold.addEventListener("click", (event) => {
+        if (event.target === scaffold) {
+          scaffold.classList.add("translate-y-full");
+          setTimeout(() => { scaffold.classList.add("hidden"); }, 300);
         }
-      }
-      const timer = setInterval(updateTimer, 1000);
-      AOS.init();
+      });
+    });
+
+    this.timer = setInterval(this.updateTimer, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
+};
 </script>
 
 <style>

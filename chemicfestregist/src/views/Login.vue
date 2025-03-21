@@ -69,7 +69,7 @@ import maskot from '@/assets/img/chemicfest9_maskot.png';
 export default {
   name: 'Login',
   data() {
-    return {
+    return {  
       maskot: maskot,
     };
   },
@@ -105,12 +105,14 @@ export default {
       const password = document.getElementById("grid-password").value;
 
       try {
-        const response = await axios.post('/login', {
-          users: email,
+        const apiUrl = import.meta.env.VITE_API_BASE;
+        const response = await axios.post(`${apiUrl}/api/login`, {
+          email: email,
           password: password
         });
         console.log("Login sukses:", response.data);
         alert(response.data.message);
+        this.$router.push('/dashboard');
       } catch (error) {
         console.error("Error login:", error.response ? error.response.data : error);
         alert(error.response ? error.response.data.message : "Terjadi kesalahan saat login");

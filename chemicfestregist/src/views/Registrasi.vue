@@ -129,60 +129,41 @@ import 'aos/dist/aos.css';
 import maskot from '@/assets/img/chemicfest9_maskot.png';
 
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     return {
       maskot,
     };
   },
   mounted() {
-    const settingsIcon = document.getElementById("cogs");
-    const scaffold = document.getElementById("scaffold");
-    const closePopup = document.getElementById("closePopup");
-
-    settingsIcon.addEventListener("click", function () {
-      scaffold.classList.remove("hidden");
-      setTimeout(() => scaffold.classList.remove("translate-y-full"), 10);
-    });
-
-    closePopup.addEventListener("click", function () {
-      scaffold.classList.add("translate-y-full");
-      setTimeout(() => scaffold.classList.add("hidden"), 300);
-    });
-
-    scaffold.addEventListener("click", function (event) {
-      if (event.target === scaffold) {
-        scaffold.classList.add("translate-y-full");
-        setTimeout(() => scaffold.classList.add("hidden"), 300);
-      }
-    });
-
     AOS.init();
 
     // Submit form registrasi dengan axios
     const registerForm = document.getElementById("registerForm");
-      registerForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
-        const name = document.getElementById("grid-first-name").value;
-        const username = document.getElementById("grid-username").value;
-        const email = document.getElementById("grid-email").value;
-        const password = document.getElementById("grid-password").value;
-        const checkpassword = document.getElementById("grid-checkpassword").value;
-        const phoneNumber = document.getElementById("grid-telephone").value;
-        const role = document.getElementById("grid-role").value;
+    registerForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const name = document.getElementById("grid-first-name").value;
+      const username = document.getElementById("grid-username").value;
+      const email = document.getElementById("grid-email").value;
+      const password = document.getElementById("grid-password").value;
+      const checkpassword = document.getElementById("grid-checkpassword").value;
+      const phoneNumber = document.getElementById("grid-telephone").value;
+      const role = document.getElementById("grid-role").value;
 
-        try {
-          const response = await axios.post('/register', {
-            name,
-            username,
-            email,
-            password,
-            checkpassword,
-            phoneNumber,
-            role
-          });
+      try {
+        const apiUrl = import.meta.env.VITE_API_BASE;
+        const response = await axios.post(`${apiUrl}/api/register`, {
+          name,
+          username,
+          email,
+          password,
+          checkpassword,
+          phoneNumber,
+          role
+        });
         console.log("Registrasi sukses:", response.data);
         alert(response.data.message);
+        window.location.href = "/login";
       } catch (error) {
         console.error("Error registrasi:", error.response ? error.response.data : error);
         alert(error.response ? error.response.data.message : "Terjadi kesalahan saat registrasi");

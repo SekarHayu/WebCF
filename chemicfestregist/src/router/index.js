@@ -4,6 +4,8 @@ import Login from '../views/Login.vue';
 import HomeAxios from '../views/HomeAxios.vue';
 import Tiket from '../views/Tiket.vue';
 import Registrasi from '../views/Registrasi.vue';
+import Dashboard from '../views/Dashboard.vue';
+import Forgot from '../views/Forgot.vue';
 
 const routes = [
   {
@@ -15,6 +17,16 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login,
+  },
+  {
+    path: '/forgot',
+    name: 'Forgot',
+    component: Forgot,
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard,
   },
   {
     path: '/registrasi',

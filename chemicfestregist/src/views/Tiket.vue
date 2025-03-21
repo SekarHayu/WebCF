@@ -28,77 +28,81 @@
       </div>
   </template>
   
-  <script>
-  document.addEventListener("DOMContentLoaded", async function () {
-    const ticketDetails = document.getElementById("ticketDetails");
-    let activeTicket = null;
+  <script setup>
+  import { ref, onMounted } from 'vue';
+  import axios from 'axios';
 
-    // Fungsi untuk mengambil data tiket dari backend
-    async function fetchTicket() {
-      try {
-        const response = await axios.get("/tickets");
-        const tickets = response.data;
-        // Filter tiket yang aktif
-        activeTicket = tickets.find(ticket => ticket.active);
-        if (activeTicket) {
-          ticketDetails.innerHTML = `
-            <h2 class="text-xl font-bold mb-2">${activeTicket.name}</h2>
-            <p>Pre Sale <span class="font-bold">Rp ${activeTicket.price}</span></p>
-          `;
-        } else {
-          ticketDetails.innerText = "Tiket tidak tersedia";
-        }
-      } catch (error) {
-        console.error("Error mengambil tiket:", error);
-        ticketDetails.innerText = "Menunggu backend";
+  const quantity = ref(1);
+  const ticketDetails = ref("Menunggu backend");
+  let activeTicket = null;
+
+  // Fungsi untuk mengambil data tiket dari backend
+  async function fetchTicket() {
+    try {
+      const apiUrl = import.meta.env.VITE_API_BASE;
+      const response = await axios.get(`${apiUrl}/tickets`);
+      const tickets = response.data;
+
+      // Filter tiket yang aktif
+      activeTicket = tickets.find(ticket => ticket.active);
+      if (activeTicket) {
+        ticketDetails.value = `
+          <h2 class="text-xl font-bold mb-2">${activeTicket.name}</h2>
+          <p>Pre Sale <span class="font-bold">Rp ${activeTicket.price}</span></p>
+        `;
+      } else {
+        ticketDetails.value = "Tiket tidak tersedia";
       }
+    } catch (error) {
+      console.error("Error mengambil tiket:", error);
+      ticketDetails.value = "Menunggu backend";
+    }
+  }
+
+  // Fungsi untuk membeli tiket
+  async function buyTicket() {
+    const userId = localStorage.getItem("userId");
+
+    if (!userId) {
+      alert("User belum login!");
+      window.location.href = "/login";
+      return;
     }
 
-    // Panggil fungsi fetchTicket saat halaman dimuat
-    await fetchTicket();
+    if (!activeTicket) {
+      alert("Tiket tidak tersedia");
+      return;
+    }
 
-    // Tangani submit form pembelian tiket
-    const buyTicketForm = document.getElementById("buyTicketForm");
-    buyTicketForm.addEventListener("submit", async function (e) {
-      e.preventDefault();
-      const quantity = parseInt(document.getElementById("quantity").value, 10);
-      const userId = localStorage.getItem("userId");
+    try {
+      const apiUrl = import.meta.env.VITE_API_BASE;
+      const response = await axios.post(`${apiUrl}/get-ticket`, {
+        userId,
+        product_Id: activeTicket.id,
+        quantity: quantity.value,
+      });
 
-      if (!userId) {
-        alert("User belum login!");
-        window.location.href = "/login";
-        return;
-      }
+      console.log("Pembelian tiket sukses:", response.data);
+      alert(response.data.message);
 
-      if (!activeTicket) {
-        alert("Tiket tidak tersedia");
-        return;
-      }
-
-      try {
-        const response = await axios.post("url/api/get-ticket", {
-          userId,
-          product_Id: activeTicket.id,
-          quantity
+      // Check jika ada token Midtrans
+      if (response.data?.snapToken) {
+        // Trigger embed Snap Midtrans
+        window.snap.embed(response.data.snapToken, {
+          embedId: 'snap-container'
         });
-
-        console.log("Pembelian tiket sukses:", response.data);
-        alert(response.data.message);
-
-        // Check jika ada token Midtrans
-        if (response.data.snapToken) {
-          // Trigger embed Snap Midtrans
-          window.snap.embed(response.data.snapToken, {
-            embedId: 'snap-container'
-          });
-        } else {
-          alert("Gagal mendapatkan token pembayaran");
-        }
-      } catch (error) {
-        console.error("Error pembelian tiket:", error.response ? error.response.data : error);
-        alert(error.response ? error.response.data.message : "Terjadi kesalahan saat pembelian tiket");
+      } else {
+        alert("Gagal mendapatkan token pembayaran");
       }
-    });
+    } catch (error) {
+      console.error("Error pembelian tiket:", error.response ? error.response.data : error);
+      alert(error.response?.data?.message || "Terjadi kesalahan saat pembelian tiket");
+    }
+  }
+
+  // Panggil fungsi fetchTicket saat komponen dimuat
+  onMounted(() => {
+    fetchTicket();
   });
 </script>
 
