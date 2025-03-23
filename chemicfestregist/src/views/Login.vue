@@ -65,6 +65,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import maskot from '@/assets/img/chemicfest9_maskot.png';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export default {
   name: 'Login',
@@ -101,10 +102,9 @@ export default {
 
     // Ambil data dari Session Storage (jika ada)
     const userData = JSON.parse(sessionStorage.getItem("userData"));
-    if (userData) {
-      document.getElementById("grid-email").value = userData.email || "";
+    if (userData?.isLoggedIn) {
       alert("Selamat datang kembali, " + userData.email + "!");
-      this.$router.push('/dashboard'); // Redirect langsung kalau data ada
+      this.$router.push('/dashboard');
     }
 
     // Menangani submit form login
@@ -112,17 +112,41 @@ export default {
     loginForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("grid-email").value;
+      const password = document.getElementById("grid-password").value;
 
-      // Simpan data ke Session Storage
-      sessionStorage.setItem("userData", JSON.stringify({ email }));
+      try {
+        // Request login ke backend
+        const apiUrl = import.meta.env.VITE_API_BASE;
+        const response = await axios.post(`${apiUrl}/api/login`, { 
+          users: email,
+          password: password,
+        });
 
-      console.log("Login sukses:", { email });
-      alert("Login berhasil! Selamat datang, " + email + "!");
-      this.$router.push('/dashboard');
+        if (response.data.code === 200) {
+          alert("Login berhasil! Selamat datang, " + email + "!");
+          // Simpan data ke Session Storage
+          sessionStorage.setItem("userData", JSON.stringify({ 
+            email, 
+            isLoggedIn: true, 
+            sessionId: response.data.sessionId, 
+            expiredAt: response.data.expiredAt 
+          }));
+          this.$router.push('/dashboard');
+        } else {
+          alert("Login gagal: " + response.data.message);
+        }
+      } catch (error) {
+        console.error("Terjadi kesalahan:",  error.response ? error.response.data : error); // Log seluruh objek response
+        console.error('Status Code:', error.response?.status); // Log status code
+        console.error('Error Message:', error.response?.data?.message); // Log pesan dari response
+        console.error('Error Stack:', error.stack); // Log stack trace
+        alert("Terjadi kesalahan server atau login gagal. Silakan coba lagi.");
+      }
     });
   },
 }
 </script>
+
 
 
 

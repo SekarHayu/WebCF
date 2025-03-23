@@ -6,12 +6,24 @@ import Tiket from '../views/Tiket.vue';
 import Registrasi from '../views/Registrasi.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Forgot from '../views/Forgot.vue';
+import Verifikasiotp from '../views/Verifikasiotp.vue';
+import Verifikasiforgot from '../views/Verifikasiforgot.vue';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: Home,
+  },
+  {
+    path: '/verifikasiotp',
+    name: 'Verifikasiotp',
+    component: Verifikasiotp,
+  },
+  {
+    path: '/verifikasiforgot',
+    name: 'Verifikasiforgot',
+    component: Verifikasiforgot,
   },
   {
     path: '/login',

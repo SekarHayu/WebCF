@@ -4,10 +4,8 @@
       <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
         <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
         <div class="flex gap-4">
-            <router-link 
-                        to="/" class="text-color-primary font-semibold hover:underline">Logout</router-link>
-            <router-link 
-                        to="/forgot" class="text-color-primary font-semibold hover:underline">Lupa Password</router-link>
+          <a @click="logout" class="text-color-primary font-semibold hover:underline cursor-pointer">Logout</a>
+          <router-link to="/forgot" class="text-color-primary font-semibold hover:underline">Lupa Password</router-link>
         </div>
     </header>
   
@@ -51,6 +49,12 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
+  import axios from 'axios';
+  import AOS from 'aos';
+  import 'aos/dist/aos.css';
+  import { useRouter } from 'vue-router';
+
+const router = useRouter();
   
   const hasTicketHistory = ref(false);
   const ticketHistory = ref([]);
@@ -83,6 +87,43 @@
       console.error('Gagal mengambil riwayat tiket:', error.message);
     }
   };
+
+  const logout = async () => {
+  try {
+    // Ambil session ID dari userData
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const sessionId = userData?.sessionId;
+
+    if (!sessionId) {
+      console.error('Session ID tidak ditemukan!');
+      return;
+    }
+
+    // Panggil API logout
+    const apiUrl = import.meta.env.VITE_API_BASE;
+    const response = await fetch(`${apiUrl}/api/logout`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sessionId }), // Kirim session ID
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) throw new Error(data.message || 'Logout gagal');
+
+    // Hapus session dari storage
+    sessionStorage.removeItem('userData');
+
+    alert('Logout berhasil');
+    router.push('/');
+
+  } catch (error) {
+    console.error('Gagal logout:', error.message);
+  }
+};
+
   
   // Jalankan fungsi ketika komponen di-mount
   onMounted(() => {
