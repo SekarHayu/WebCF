@@ -11,7 +11,7 @@
 
 
       <!-- Step 2: Masukkan OTP dan Password Baru -->
-      <div v-if="step2">
+      <div id="">
         <input
           v-model="email"
           type="text"
@@ -64,34 +64,7 @@ const newPassword = ref('');
 const checkPassword = ref('');
 const message = ref('');
 const errorMessage = ref('');
-const step2 = ref(false); // Step kontrol
 
-// Kirim kode OTP ke email
-const sendOtp = async () => {
-  try {
-    const apiUrl = import.meta.env.VITE_API_BASE;
-    const response = await axios.post(`${apiUrl}/api/request-forgot`, { users: email.value });
-
-    // Cek apakah response berhasil
-    if (response.data.success) {
-      message.value = response.data.message || 'Kode OTP berhasil dikirim ke email Anda!';
-      step2.value = true; // Pindah ke step 2
-      errorMessage.value = ''; // Reset error message
-      console.log('step2:', step2.value);
-      console.log('Message:', message.value); // Tambahkan log ini
-    } else {
-      // Jika response success = false, anggap sebagai error
-      errorMessage.value = response.data.message || 'Gagal mengirim OTP';
-      message.value = '';
-      console.log('Error Message:', errorMessage.value); // Tambahkan log ini
-    }
-  } catch (error) {
-    // Tangani error dari axios atau dari API
-    errorMessage.value = error.response?.data?.message || error.message || 'Gagal mengirim kode OTP. Cek kembali email Anda.';
-    message.value = '';
-    console.error('Error sendOtp:', error);
-  }
-};
 
 // Verifikasi OTP dan reset password
 const resetPassword = async () => {
@@ -106,10 +79,10 @@ const resetPassword = async () => {
       users: email.value,
       token: otpToken.value,
       password: newPassword.value,
-      checkpassword: checkPassword.value,
+      confirm_password: checkPassword.value,
     });
 
-    if (response.data.success) {
+    if (response.data.code === 200) {
       message.value = 'Password berhasil diubah! Anda akan diarahkan ke halaman login.';
       errorMessage.value = '';
 

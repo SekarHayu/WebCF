@@ -8,6 +8,7 @@ import Dashboard from '../views/Dashboard.vue';
 import Forgot from '../views/Forgot.vue';
 import Verifikasiotp from '../views/Verifikasiotp.vue';
 import Verifikasiforgot from '../views/Verifikasiforgot.vue';
+import Riwayat from '../views/Riwayat.vue';
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/verifikasiotp',
     name: 'Verifikasiotp',
     component: Verifikasiotp,
+  },
+  {
+    path: '/riwayat',
+    name: 'Riwayat',
+    component: Riwayat,
   },
   {
     path: '/verifikasiforgot',

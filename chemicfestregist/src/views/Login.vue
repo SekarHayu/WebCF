@@ -127,6 +127,7 @@ export default {
           // Simpan data ke Session Storage
           sessionStorage.setItem("userData", JSON.stringify({ 
             email, 
+            userId: response.data.userData.id,
             isLoggedIn: true, 
             sessionId: response.data.sessionId, 
             expiredAt: response.data.expiredAt 

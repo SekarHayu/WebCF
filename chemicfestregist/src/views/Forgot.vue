@@ -51,13 +51,12 @@ const sendOtp = async () => {
     const apiUrl = import.meta.env.VITE_API_BASE;
     const response = await axios.post(`${apiUrl}/api/request-forgot`, { users: email.value });
 
-    // Cek apakah response berhasil
-    if (response.data.success) {
+    // Ce k apakah response berhasil
+    if (response.data) {
       message.value = response.data.message || 'Kode OTP berhasil dikirim ke email Anda!';
-      router.push('/verifikasiforgot');
       errorMessage.value = ''; // Reset error message
-      
-      console.log('Message:', message.value); // Tambahkan log ini
+      console.log('Message:', message.value); // Log sukses
+      router.push('/verifikasiforgot');
     } else {
       // Jika response success = false, anggap sebagai error
       errorMessage.value = response.data.message || 'Gagal mengirim OTP';
