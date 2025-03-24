@@ -37,7 +37,8 @@
                 <img :src="ticket.urlTicket.qrcode" alt="QR Code" class="w-32 h-auto mt-2" />
                 <a :href="ticket.urlTicket.eTicket" target="_blank" class="text-blue-500 hover:underline">Lihat E-Ticket</a><br>
                 <a :href="ticket.urlTicket.downloadETicket" download class="text-green-500 hover:underline">Download E-Ticket</a><br>
-                <a :href="ticket.urlTicket.downloadInvoice" download class="text-orange-500 hover:underline">Download Invoice</a><br>
+                <!--<a :href="ticket.urlTicket.downloadInvoice" download class="text-orange-500 hover:underline">Download Invoice</a><br>-->
+                
               </li>
             </ul>
           </div>
