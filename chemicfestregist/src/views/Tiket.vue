@@ -120,8 +120,8 @@ async function buyTicket() {
 
       // Memuat Snap Midtrans
       const snapScript = document.createElement("script");
-      snapScript.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-      snapScript.setAttribute("data-client-key", "SB-Mid-client-QDOtixdrCfhS_O3C");
+      snapScript.src = "https://app.midtrans.com/snap/snap.js";
+      snapScript.setAttribute("data-client-key", "Mid-client-RE6DmaCD9JsF11Mu");
       snapScript.onload = () => {
         const snapContainer = document.getElementById("snap-container");
         snapContainer.classList.add("active");
