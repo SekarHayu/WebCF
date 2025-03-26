@@ -40,7 +40,7 @@ const router = useRouter();
 
 // Reactive State  
 const quantity = ref(1);  
-const ticketDetails = ref("Menunggu backend");  
+const ticketDetails = ref("Pre Sale");  
 const activeTicket = ref(null);  
 const errorMessage = ref("");
 
