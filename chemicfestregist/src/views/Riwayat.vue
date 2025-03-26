@@ -16,10 +16,7 @@
           <p class="text-gray-600">Loading riwayat tiket...</p>
         </div>
 
-        <!-- Pesan Error -->
-        <div v-if="errorMessage" class="bg-red-100 text-red-600 p-4 rounded-md">
-          {{ errorMessage }}
-        </div>
+      
         
         <!-- Card Riwayat Tiket (muncul kalau ada riwayat) -->
         <div v-if="hasTicketHistory" class="bg-white shadow-md rounded-2xl p-6 text-center">
