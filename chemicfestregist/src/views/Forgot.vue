@@ -29,7 +29,6 @@
 
       <!-- Pesan Notifikasi -->
       <p v-if="message" class="mt-4 text-green-500">{{ message }}</p>
-      <p v-if="errorMessage" class="mt-4 text-red-500">{{ errorMessage }}</p>
     </div>
   </div>
 </template>
