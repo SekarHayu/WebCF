@@ -2,7 +2,7 @@
     <div class="bg-gray-300 flex justify-center items-center min-h-screen">
       <!-- Header -->
       <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
-        <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
+        <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer" @click="$router.push('/')">Chemicfest</h1>
         <div class="flex gap-4">
           <a @click="logout" class="text-color-primary font-semibold hover:underline cursor-pointer">Logout</a>
           <router-link to="/forgot" class="text-color-primary font-semibold hover:underline">Lupa Password</router-link>

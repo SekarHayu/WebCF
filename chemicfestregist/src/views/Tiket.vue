@@ -1,9 +1,12 @@
 <template>  
   <div class="bg-gray-300 flex justify-center items-center min-h-screen">  
     <!-- Header -->  
-    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10">  
-      <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>  
-    </header>  
+    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
+        <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
+        <div class="flex gap-4">
+          <router-link to="/dashboard" class="text-color-primary font-semibold hover:underline">Kembali</router-link>
+        </div>
+      </header>
 
     <!-- Main Content -->  
     <main class="flex flex-col items-center justify-center flex-grow pt-20 px-5">  
@@ -20,6 +23,9 @@
           </div>  
           <button id="pay-button" class="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">Beli Tiket</button>  
         </form>  
+        <p v-if="errorMessage" class="mt-2 text-red-500 text-sm text-center">
+          {{ errorMessage }}
+        </p> 
       </div>  
       <div id="snap-container"></div>
     </main>  
@@ -36,10 +42,12 @@ const router = useRouter();
 const quantity = ref(1);  
 const ticketDetails = ref("Menunggu backend");  
 const activeTicket = ref(null);  
+const errorMessage = ref("");
+
 
 // Fungsi untuk mengambil data tiket dari backend  
 async function fetchTicket() {  
-  try {  
+  try {           
     const apiUrl = import.meta.env.VITE_API_BASE;  
     console.log("[INFO] Fetching from:", apiUrl);
 
@@ -84,6 +92,8 @@ async function fetchTicket() {
 
 async function buyTicket() {
   try {
+    errorMessage.value = ""; // Reset error sebelum mulai request
+
     const apiUrl = import.meta.env.VITE_API_BASE;
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     const userId = userData?.userId;
@@ -92,54 +102,51 @@ async function buyTicket() {
       throw new Error("User ID tidak ditemukan.");
     }
 
-    // Ngambil tiket
-    
     const ticketResponse = await axios.get(`${apiUrl}/api/get-ticket`);
     const productId = ticketResponse.data.data[0].productId;
-    console.log("[INFO] Product ID:", productId);
 
-    // Kirim data pembelian tiket
     const response = await axios.post(`${apiUrl}/api/buy-ticket`, {
       userId: userId,
       product_Id: productId, 
       quantity: quantity.value,
     });
-    console.log("[INFO] Respons dari server:", response);
 
     const transactionToken = response.data.token;
     console.log("[INFO] Transaction token:", transactionToken);
 
     if (transactionToken) {
+      // Jika sukses, hapus error message
+      errorMessage.value = "";
+
       // Memuat Snap Midtrans
       const snapScript = document.createElement("script");
       snapScript.src = "https://app.sandbox.midtrans.com/snap/snap.js";
       snapScript.setAttribute("data-client-key", "SB-Mid-client-QDOtixdrCfhS_O3C");
       snapScript.onload = () => {
         const snapContainer = document.getElementById("snap-container");
-        snapContainer.classList.add("active"); // Munculin snap-container
+        snapContainer.classList.add("active");
         window.snap.embed(transactionToken, {
-        embedId: "snap-container",
-        onSuccess: function (result) {
-          console.log("[INFO] Pembayaran berhasil:", result);
-          alert("Pembayaran berhasil!");
-          const event = new CustomEvent("paymentSuccess");
-          window.dispatchEvent(event);
-          router.push("/riwayat");
-        },
-        onPending: function (result) {
-          console.log("[INFO] Pembayaran pending:", result);
-          alert("Pembayaran masih pending!");
-        },
-        onError: function (result) {
-          console.log("[ERROR] Pembayaran gagal:", result);
-          alert("Pembayaran gagal!");
-        },
-        onClose: function () {
-          console.log("[INFO] Pembayaran ditutup oleh pengguna.");
-          alert("Pembayaran ditutup!");
-        },
-      });
-
+          embedId: "snap-container",
+          onSuccess: function (result) {
+            console.log("[INFO] Pembayaran berhasil:", result);
+            alert("Pembayaran berhasil!");
+            const event = new CustomEvent("paymentSuccess");
+            window.dispatchEvent(event);
+            router.push("/riwayat");
+          },
+          onPending: function (result) {
+            console.log("[INFO] Pembayaran pending:", result);
+            alert("Pembayaran masih pending!");
+          },
+          onError: function (result) {
+            console.log("[ERROR] Pembayaran gagal:", result);
+            alert("Pembayaran gagal!");
+          },
+          onClose: function () {
+            console.log("[INFO] Pembayaran ditutup oleh pengguna.");
+            alert("Pembayaran ditutup!");
+          },
+        });
       };
       document.body.appendChild(snapScript);
     } else {
@@ -147,9 +154,12 @@ async function buyTicket() {
     }
   } catch (error) {
     console.error("[ERROR] Pembelian tiket gagal:", error.response?.data || error.message);
-    alert("Pembelian tiket gagal, coba lagi!");
+    
+    // Ambil pesan error dari backend dan cetak ke bawah tombol
+    errorMessage.value = error.response?.data?.message || "Pembelian tiket gagal, coba lagi!";
   }
 }
+
 
 
 // Panggil fungsi fetchTicket saat komponen dimuat  

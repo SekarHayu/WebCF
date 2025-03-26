@@ -9,6 +9,8 @@ import Forgot from '../views/Forgot.vue';
 import Verifikasiotp from '../views/Verifikasiotp.vue';
 import Verifikasiforgot from '../views/Verifikasiforgot.vue';
 import Riwayat from '../views/Riwayat.vue';
+import Eticket from '../views/Eticket.vue';
+
 
 const routes = [
   {
@@ -20,6 +22,11 @@ const routes = [
     path: '/verifikasiotp',
     name: 'Verifikasiotp',
     component: Verifikasiotp,
+  },
+  {
+    path: '/eticket',
+    name: 'Eticket',
+    component: Eticket,
   },
   {
     path: '/riwayat',

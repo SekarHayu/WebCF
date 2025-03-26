@@ -1,73 +1,103 @@
 <template>
-    <div class="bg-gray-300 flex justify-center items-center min-h-screen">
-      <!-- Header -->
-      <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
-        <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
-        <div class="flex gap-4">
-          <router-link to="/dashboard" class="text-color-primary font-semibold hover:underline">Kembali</router-link>
+  <div class="bg-gray-300 flex justify-center items-center min-h-screen">
+    <!-- Header -->
+    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
+      <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
+      <div class="flex gap-4">
+        <router-link to="/dashboard" class="text-color-primary font-semibold hover:underline">Kembali</router-link>
+      </div>
+    </header>
+
+    <div class="w-full max-w-md mx-auto p-4 mt-20">
+      <div class="grid grid-cols-1 gap-4">
+        
+        <!-- Loading Spinner -->
+        <div v-if="loading" class="flex justify-center items-center py-8">
+          <p class="text-gray-600">Loading riwayat tiket...</p>
         </div>
-      </header>
-  
-      <div class="w-full max-w-md mx-auto p-4 mt-20">
-        <div class="grid grid-cols-1 gap-4">
-          
-          <!-- Loading Spinner -->
-          <div v-if="loading" class="flex justify-center items-center py-8">
-            <p class="text-gray-600">Loading riwayat tiket...</p>
-          </div>
-  
-          <!-- Pesan Error -->
-          <div v-if="errorMessage" class="bg-red-100 text-red-600 p-4 rounded-md">
-            {{ errorMessage }}
-          </div>
-          
-          <!-- Card Riwayat Tiket (muncul kalau ada riwayat) -->
-          <div v-if="hasTicketHistory" class="bg-white shadow-md rounded-2xl p-6 text-center">
-            <h2 class="text-xl font-bold mb-2">Riwayat Tiket</h2>
-            <p class="text-gray-600 mb-4">Berikut adalah riwayat pembelian tiket Anda:</p>
-            <ul class="text-left space-y-2">
-              <li
-                v-for="(ticket, index) in ticketHistory"
-                :key="index"
-                class="bg-gray-100 p-3 rounded-md shadow-sm"
+
+        <!-- Pesan Error -->
+        <div v-if="errorMessage" class="bg-red-100 text-red-600 p-4 rounded-md">
+          {{ errorMessage }}
+        </div>
+        
+        <!-- Card Riwayat Tiket (muncul kalau ada riwayat) -->
+        <div v-if="hasTicketHistory" class="bg-white shadow-md rounded-2xl p-6 text-center">
+          <h2 class="text-xl font-bold mb-2">Riwayat Tiket</h2>
+          <p class="text-gray-600 mb-4">Berikut adalah riwayat pembelian tiket Anda:</p>
+          <ul class="text-left space-y-2">
+            <li
+              v-for="(ticket, index) in ticketHistory"
+              :key="index"
+              class="bg-gray-100 p-3 rounded-md shadow-sm"
+            >
+              <p class="text-gray-800 font-semibold">Event: {{ ticket.type }}</p>
+              <p class="text-gray-600">Jumlah: {{ ticket.needed }}</p>
+              <p class="text-gray-600">Booking Code: {{ ticket.bookingCode }}</p>
+              
+              <!-- Lihat E-Ticket 
+              <div>
+                <button @click="showPdf(ticket.bookingCode)">Lihat E-Ticket</button>
+  <div v-if="pdfUrl">
+    <iframe :src="pdfUrl" width="100%" height="600px"></iframe>
+  </div>
+  </div>
+  <br>-->
+
+              <!-- Download E-Ticket
+              <a 
+                :href="`${apiUrl}/download/${getFilename(ticket.urlTicket.eTicket)}`" 
+                download 
+                class="text-green-500 hover:underline"
               >
-                <p class="text-gray-800 font-semibold">Event: {{ ticket.type }}</p>
-                <p class="text-gray-600">Jumlah: {{ ticket.needed }}</p>
-                <p class="text-gray-600">Kode Tiket: {{ ticket.bookingCode }}</p>
-                <img :src="ticket.urlTicket.qrcode" alt="QR Code" class="w-32 h-auto mt-2" />
-                <a :href="ticket.urlTicket.eTicket" target="_blank" class="text-blue-500 hover:underline">Lihat E-Ticket</a><br>
-                <a :href="ticket.urlTicket.downloadETicket" download class="text-green-500 hover:underline">Download E-Ticket</a><br>
-                <!--<a :href="ticket.urlTicket.downloadInvoice" download class="text-orange-500 hover:underline">Download Invoice</a><br>-->
-                
-              </li>
-            </ul>
-          </div>
-  
-          <!-- Tidak Ada Riwayat -->
-          <div v-else-if="!loading" class="bg-white shadow-md rounded-2xl p-6 text-center">
-            <h2 class="text-xl font-bold mb-2">Tidak Ada Riwayat</h2>
-            <p class="text-gray-600">Anda belum memiliki riwayat pembelian tiket.</p>
-          </div>
+                Download E-Ticket
+              </a>  -->
+
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tidak Ada Riwayat -->
+        <div v-else-if="!loading" class="bg-white shadow-md rounded-2xl p-6 text-center">
+          <h2 class="text-xl font-bold mb-2">Tidak Ada Riwayat</h2>
+          <p class="text-gray-600">Anda belum memiliki riwayat pembelian tiket.</p>
         </div>
       </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted } from 'vue';
-  import axios from 'axios';
-  import AOS from 'aos';
-  import 'aos/dist/aos.css';
-  import { useRouter } from 'vue-router';
-  
-  const router = useRouter();
-  
-  const ticketHistory = ref([]);
-  const hasTicketHistory = ref(false);
-  const loading = ref(true);
-  const errorMessage = ref('');
-  
-  const checkTicketHistory = async () => {
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const ticketHistory = ref([]);
+const hasTicketHistory = ref(false);
+const loading = ref(true);
+const errorMessage = ref('');
+const apiUrl = import.meta.env.VITE_API_BASE; // Ambil URL API dari environment variable
+
+// Fungsi untuk mengambil nama file dari URL e-ticket
+// const getFilename = (url) => {
+ // return url.split('/').pop(); // Ambil bagian akhir dari URL (nama file)
+//};
+
+//const pdfUrl = ref("");
+
+//const showPdf = async (ticketId) => {
+//  try {
+    // Gunakan ID tiket yang dikirimkan sebagai parameter
+ //   pdfUrl.value = `${import.meta.env.VITE_ETICKET_API_BASE}/tickets/pdf/${ticketId}`;
+  //} catch (error) {
+    //console.error("Gagal memuat PDF:", error);}};
+
+
+const checkTicketHistory = async () => {
   try {
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     const userId = userData?.userId;
@@ -79,11 +109,11 @@
     }
 
     // Kirim userId ke API
-    const apiUrl = import.meta.env.VITE_API_BASE;
     const response = await axios.post(`${apiUrl}/api/have-ticket`, {
       userId: userId,
     });
 
+    
     // Update data riwayat tiket jika ada
     if (response.status === 200) {
       const data = response.data.data; // Ambil array data dari respons
@@ -118,17 +148,16 @@
   }
 };
 
-  
-  // Jalankan fungsi ketika komponen di-mount
-  onMounted(() => {
-    checkTicketHistory();
-    window.addEventListener("paymentSuccess", checkTicketHistory);
-  });
-  </script>
-  
-  <style>
-  body {
-    font-family: 'Poppins', sans-serif;
-  }
-  </style>
-  
+
+// Jalankan fungsi ketika komponen di-mount
+onMounted(() => {
+  checkTicketHistory();
+  window.addEventListener("paymentSuccess", checkTicketHistory);
+});
+</script>
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+}
+</style>

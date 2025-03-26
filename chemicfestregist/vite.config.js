@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd());
 
   console.log('VITE_API_BASE:', env.VITE_API_BASE);
-  console.log('VITE_API_KEY:', env.VITE_API_KEY);
+  console.log('VITE_ETICKET_API_BASE:', env.VITE_ETICKET_API_BASE);
 
   return {
     plugins: [
