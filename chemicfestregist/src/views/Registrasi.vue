@@ -81,6 +81,7 @@
               <option value="pelajar">Pelajar</option>
               <option value="guru">Guru</option>
               <option value="mahasiswa">Mahasiswa</option>
+              <option value="umum">Umum</option>
             </select>
             <p class="text-gray-600 text-xs italic">Harap pilih role yang sesuai!</p>
           </div>
@@ -102,7 +103,7 @@
       <a href="#" id="cogs"><i class="fas fa-cogs text-1xl"></i></a>
     </div>
 
-    <!-- Popup Settings -->
+    <!-- Popup Settings 
     <div id="scaffold" class="fixed inset-0 bg-black backdrop-blur-md bg-opacity-50 flex items-end transform translate-y-full transition-transform duration-300 z-30 hidden">
       <div class="w-full bg-white p-6 shadow-lg rounded-t-lg">
         <img :src="maskot" alt="Chemicfest Maskot" class="w-2/4 h-auto mx-auto" />
@@ -110,7 +111,7 @@
         <p class="text-gray-600">Ini adalah menu pengaturan.</p>
         <button id="closePopup" class="mt-4 w-full bg-red-500 text-white py-2 rounded">Tutup</button>
       </div>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -163,32 +164,32 @@ export default {
   },
   mounted() {
     // Penanganan popup settings
-    const settingsIcon = document.getElementById("cogs");
-    const scaffold = document.getElementById("scaffold");
-    const closePopup = document.getElementById("closePopup");
+    // const settingsIcon = document.getElementById("cogs");
+    // const scaffold = document.getElementById("scaffold");
+    // const closePopup = document.getElementById("closePopup");
 
-    settingsIcon.addEventListener("click", function () {
-      scaffold.classList.remove("hidden");
-      setTimeout(() => {
-        scaffold.classList.remove("translate-y-full");
-      }, 10);
-    });
+    // settingsIcon.addEventListener("click", function () {
+    //   scaffold.classList.remove("hidden");
+    //   setTimeout(() => {
+    //     scaffold.classList.remove("translate-y-full");
+    //   }, 10);
+    // });
 
-    closePopup.addEventListener("click", function () {
-      scaffold.classList.add("translate-y-full");
-      setTimeout(() => {
-        scaffold.classList.add("hidden");
-      }, 300);
-    });
+    // closePopup.addEventListener("click", function () {
+    //   scaffold.classList.add("translate-y-full");
+    //   setTimeout(() => {
+    //     scaffold.classList.add("hidden");
+    //   }, 300);
+    // });
 
-    scaffold.addEventListener("click", function (event) {
-      if (event.target === scaffold) {
-        scaffold.classList.add("translate-y-full");
-        setTimeout(() => {
-          scaffold.classList.add("hidden");
-        }, 300);
-      }
-    });
+    // scaffold.addEventListener("click", function (event) {
+    //   if (event.target === scaffold) {
+    //     scaffold.classList.add("translate-y-full");
+    //     setTimeout(() => {
+    //       scaffold.classList.add("hidden");
+    //     }, 300);
+    //   }
+    // });
 
     AOS.init();
   }
