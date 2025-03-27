@@ -1,8 +1,11 @@
 <template>
   <div class="bg-gray-300 flex justify-center items-center min-h-screen">
     <!-- Header -->
-    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10">
+    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
       <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
+      <div class="flex gap-4">
+        <router-link to="/" class="text-color-primary font-semibold hover:underline">Kembali</router-link>
+      </div>
     </header>
 
     <!-- Main Content -->
@@ -95,13 +98,13 @@
       </form>
     </main>
 
-    <!-- Footer Navigasi -->
+    <!-- Footer Navigasi 
     <div class="fixed bottom-0 left-0 w-full bg-gray/100 backdrop-blur-md p-5 flex justify-around items-center z-20">
       <router-link to="/">
         <i class="fas fa-home text-1xl"></i>
       </router-link>
       <a href="#" id="cogs"><i class="fas fa-cogs text-1xl"></i></a>
-    </div>
+    </div> -->
 
     <!-- Popup Settings 
     <div id="scaffold" class="fixed inset-0 bg-black backdrop-blur-md bg-opacity-50 flex items-end transform translate-y-full transition-transform duration-300 z-30 hidden">
