@@ -109,8 +109,7 @@
         <h2 class="text-xl font-bold">Pengaturan</h2>
         <p class="text-gray-600">Menu pengaturan.</p>
  
-        <button id="" class="mt-4 w-full bg-green-500 text-white py-1 rounded">1. Kredit Website Chemicfest</button>
-                <button id="" class="mt-4 w-full bg-green-500 text-white py-1 rounded">2. Kredit Sponsor Chemicfest</button>
+                <button id="" class="mt-4 w-full bg-green-500 text-white py-1 rounded">1. Kredit Sponsor Chemicfest</button>
         <button id="closePopup" class="mt-4 w-full bg-red-500 text-white py-2 ">Tutup</button>
       </div>
     </div>

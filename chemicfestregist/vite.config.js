@@ -18,11 +18,15 @@ export default defineConfig(({ mode }) => {
     ],
     server: {
       port: 2025,  // Ubah port di sini
+      allowedHosts: 'chemicfest9.site'
     },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
       },
     },
+    preview: {
+      allowedHosts: ['localhost', 'chemicfest9.site']
+    }
   };
 });

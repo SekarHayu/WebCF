@@ -81,6 +81,7 @@
               <option value="pelajar">Pelajar</option>
               <option value="guru">Guru</option>
               <option value="mahasiswa">Mahasiswa</option>
+              <option value="umum">Umum</option>
             </select>
             <p class="text-gray-600 text-xs italic">Harap pilih role yang sesuai!</p>
           </div>
