@@ -76,7 +76,7 @@ async function fetchTicket() {
     if (activeTicket.value) {  
       ticketDetails.value = `  
         <h2 class="text-xl font-bold mb-2">${activeTicket.value.name}</h2>  
-        <p>Pre Sale <span class="font-bold">Rp ${activeTicket.value.price}</span></p>  
+        <p><span class="font-bold">Rp ${activeTicket.value.price}</span></p>  
       `;  
       console.log("[INFO] Ticket details updated:", ticketDetails.value);  
     } else {  
