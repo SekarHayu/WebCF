@@ -141,7 +141,7 @@
         </div>
 
         <!-- Lainnya Section with Cards -->
-        <div class="w-full max-w-6xl mx-auto z-10 px-4 mt-20">
+        <div class="w-full max-w-6xl mx-auto  px-4 mt-20">
           <h1 data-aos="fade-up"
             class="font-bold text-3xl mb-8 text-center bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-transparent bg-clip-text">
             Lainnya</h1>
@@ -229,7 +229,7 @@
         </div>
 
         <!-- Contact Us Section -->
-        <div class="w-full max-w-4xl mx-auto z-10 px-4 mt-20 mb-24" data-aos="fade-up">
+        <div class="w-full max-w-4xl mx-auto px-4 mt-20 mb-24" data-aos="fade-up">
           <h1
             class="font-bold text-3xl mb-8 text-center bg-gradient-to-r from-[#6FEE8D] to-[#17c964] text-transparent bg-clip-text">
             Hubungi Kami</h1>
