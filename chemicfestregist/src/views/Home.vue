@@ -126,7 +126,7 @@
 
         <!-- CTA Button -->
         <div class="flex flex-col items-center mt-10">
-          <a href="/register"
+          <a href="/registrasi"
             class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-bold rounded-full bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-white shadow-md transition-all duration-300 ease-in-out hover:shadow-lg hover:shadow-red-500/50 hover:scale-105">
             <span
               class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#FF5F5F] via-[#FF7F7F] to-[#D52C2C] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></span>
