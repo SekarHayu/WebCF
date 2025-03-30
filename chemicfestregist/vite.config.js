@@ -15,6 +15,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       vue(),
       vueDevTools(),
+
     ],
     server: {
       port: 2025,  // Ubah port di sini

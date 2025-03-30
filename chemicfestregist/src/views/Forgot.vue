@@ -1,8 +1,8 @@
 <template>
   <div class="bg-gray-300 flex justify-center items-center min-h-screen">
     <!-- Header -->
-    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
-      <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
+    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 lg:px-32 py-4 z-10 flex justify-between items-center">
+      <router-link to="/" id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</router-link>
     </header>
 
     <div class="bg-white shadow-md rounded-2xl p-8 mx-4 w-full max-w-md text-center">

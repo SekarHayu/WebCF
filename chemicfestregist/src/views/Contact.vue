@@ -1,12 +1,6 @@
 <template>
     <div class="bg-gray-300 flex justify-center items-center min-h-screen">
-    <!-- Header -->
-    <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
-      <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
-      <div class="flex gap-4">
-        <router-link to="/" class="text-color-primary font-semibold hover:underline">Kembali</router-link>
-      </div>
-    </header>
+
     <div class="items-center w-screen md:w-screen md:items-center md:justify-center sm:justify-center sm:p-32  p-8">
       <h1 class="text-2xl font-bold mb-4 text-center">Butuh Bantuan?</h1>
       <p class="text-center font-bold italic">Jika ada kendala atau hal yang ingin ditanyakan, silakan klik button berikut</p>
