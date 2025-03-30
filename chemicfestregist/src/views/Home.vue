@@ -28,35 +28,35 @@
         <div
           class="flex flex-col items-center justify-center text-center  transform transition-all duration-500 hover:scale-105">
           <div class="mb-6">
-            <img :src="logocf" alt="Chemicfest Logo" class="w-auto h-40 mx-auto animate-float" />
+            <img :src="logocf" alt="Chemicfest Logo" class="w-auto h-32 lg:h-40 mx-auto animate-float" />
           </div>
-          <h1 class="text-5xl md:text-7xl font-bold mb-2">
+          <h1 class="text-[2.3rem] lg:text-5xl font-bold lg:mb-2">
             <span class="bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-transparent bg-clip-text">Chemicfest#9</span>
           </h1>
-          <h2 class="text-2xl md:text-3xl font-light mb-4">Chemicalistronic Festival</h2>
-          <div class="text-lg opacity-80">by OSIS SMK-SMTI YOGYAKARTA</div>
+          <h2 class="text-lg lg:text-xl font-light mb-4">Chemicalistronic Festival</h2>
+          <div class="text-sm lg:text-lg opacity-80">by OSIS SMK-SMTI YOGYAKARTA</div>
         </div>
 
         <!-- Countdown Timer -->
-        <div class="flex flex-wrap justify-center gap-4  my-8">
+        <div class="grid grid-cols-4 justify-center gap-2 lg:gap-4 my-8 px-4">
           <div
-            class="bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-4 rounded-xl text-center w-20">
-            <div id="days" class="text-3xl font-bold">00</div>
+            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+            <div id="days" class="text-xl lg:text-3xl font-bold">00</div>
             <div class="text-xs uppercase tracking-wider">Days</div>
           </div>
           <div
-            class="bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-4 rounded-xl text-center w-20">
-            <div id="hours" class="text-3xl font-bold">00</div>
+            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+            <div id="hours" class="text-xl lg:text-3xl font-bold">00</div>
             <div class="text-xs uppercase tracking-wider">Hours</div>
           </div>
           <div
-            class="bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-4 rounded-xl text-center w-20">
-            <div id="minutes" class="text-3xl font-bold">00</div>
+            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+            <div id="minutes" class="text-xl lg:text-3xl font-bold">00</div>
             <div class="text-xs uppercase tracking-wider">Minutes</div>
           </div>
           <div
-            class="bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-4 rounded-xl text-center w-20">
-            <div id="seconds" class="text-3xl font-bold">00</div>
+            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+            <div id="seconds" class="text-xl lg:text-3xl font-bold">00</div>
             <div class="text-xs uppercase tracking-wider">Seconds</div>
           </div>
         </div>

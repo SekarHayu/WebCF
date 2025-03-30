@@ -2,7 +2,7 @@
   <!-- Header -->
   <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 z-10 px-6 lg:px-32 py-4 flex justify-between ">
     <router-link :to="linkTo" id="title" class="text-2xl text-red-500 font-bold cursor-pointer">Chemicfest</router-link>
-    <div class="flex gap-4">
+    <div class="flex gap-4 items-center">
       <!-- Conditional Links -->
       <div v-if="isLoginOrRegister || isDashboard" class="text-color-primary font-semibold ">
         <RouterLink v-if="isLoginOrRegister" to="/" class="text-color-primary font-semibold ">Kembali</RouterLink>
