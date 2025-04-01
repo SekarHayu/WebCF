@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-300 flex justify-center items-center min-h-screen">
+  <div class="bg-gray-300 flex justify-center items-center min-h-screen text-gray-900">
 
     <div class="w-full max-w-md mx-auto p-4">
       <div class="grid grid-cols-1 gap-4">

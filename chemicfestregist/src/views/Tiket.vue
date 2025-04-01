@@ -1,6 +1,5 @@
 <template>  
-  <div class="bg-gray-300 flex justify-center items-center min-h-screen">  
-
+  <div class="bg-gray-300 flex justify-center items-center min-h-screen text-gray-900">  
     <!-- Main Content -->  
     <main class="flex flex-col items-center justify-center flex-grow pt-20 px-5">  
       <!-- Card Pembelian Tiket -->  
