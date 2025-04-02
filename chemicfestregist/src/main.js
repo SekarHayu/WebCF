@@ -6,7 +6,6 @@ import 'aos/dist/aos.css';
 import '@/assets/styles/base.css';  // Import CSS global
 
 const app = createApp(App);
-createApp(App).use(router).mount('#app');
 AOS.init();
 app.use(router);
 app.mount('#app');

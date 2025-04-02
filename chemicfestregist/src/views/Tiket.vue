@@ -1,31 +1,129 @@
 <template>  
-  <div class="bg-gray-300 flex justify-center items-center min-h-screen text-gray-900">  
+  <div class="bg-gray-50 flex justify-center items-center min-h-screen relative overflow-hidden text-gray-900">
+    <!-- Background blur circles -->
+    <div class="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-gradient-to-r from-[#5EA2EF]/30 to-[#0072F5]/20 blur-3xl"></div>
+    <div class="absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-gradient-to-r from-[#6FEE8D]/30 to-[#17c964]/20 blur-3xl"></div>
+    
     <!-- Main Content -->  
-    <main class="flex flex-col items-center justify-center flex-grow pt-20 px-5">  
+    <main class="flex flex-col items-center justify-center w-full max-w-md mx-auto p-6 relative z-10">
+      <!-- Header with golden ratio spacing -->
+      <!-- <div class="w-full mb-8 text-center">
+        <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C]">Chemicfest #9</h1>
+        <p class="text-gray-600 mt-2">Pembelian Tiket</p>
+      </div> -->
+      
       <!-- Card Pembelian Tiket -->  
-      <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">  
+      <div class="bg-white shadow-lg rounded-xl overflow-hidden w-full">
+        <!-- Header Card with golden ratio height -->
+        <div class="relative h-0 pb-[38.2%] bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] flex items-end">
+          <div class="absolute inset-0 flex items-center justify-center">
+            <svg class="w-16 h-16 text-white/80" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z" />
+            </svg>
+          </div>
+          <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/50 to-transparent text-white">
+            <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-1">
+              Event Ticket
+            </div>
+          </div>
+        </div>
+        
         <!-- Container untuk menampilkan data tiket -->  
-        <div id="ticketDetails" class="mb-4 text-center" v-html="ticketDetails"></div>  
+        <div class="p-6 border-b border-gray-100">
+          <div id="ticketDetails" class="flex flex-col items-center space-y-2" v-html="ticketDetails"></div>
+
+          <!-- Fitur tiket -->
+          <div class="mt-6 space-y-2">
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-sm text-gray-600">Akses penuh ke semua acara</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-sm text-gray-600">Merchandise eksklusif</span>
+            </div>
+            <div class="flex items-center">
+              <svg class="w-5 h-5 mr-2 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span class="text-sm text-gray-600">Sertifikat kehadiran</span>
+            </div>
+          </div>
+        </div>
 
         <!-- Form Pembelian Tiket -->  
-        <form id="buyTicketForm" class="space-y-4" @submit.prevent="buyTicket">  
-          <div>  
-            <label for="quantity" class="block text-sm font-medium text-gray-700">Jumlah Tiket</label>  
-            <input id="quantity" v-model="quantity" type="number" min="1" class="mt-1 block w-full px-3 py-2 bg-gray-100 border border-gray-300 rounded-md" required>  
-          </div>  
-          <button id="pay-button" class="w-full py-2 px-4 bg-green-500 text-white rounded hover:bg-green-600">Beli Tiket</button>  
-        </form>  
-        <p v-if="errorMessage" class="mt-2 text-red-500 text-sm text-center">
-          {{ errorMessage }}
-        </p> 
-      </div>  
+        <div class="p-6">
+          <form id="buyTicketForm" class="space-y-5" @submit.prevent="buyTicket">  
+            <div>  
+              <label for="quantity" class="block text-sm font-medium text-gray-700 mb-1">Jumlah Tiket</label>
+              <div class="relative">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd" />
+                  </svg>
+                </div>
+                <input 
+                  id="quantity" 
+                  v-model="quantity" 
+                  type="number" 
+                  min="1" 
+                  class="block w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF5F5F]/20 focus:border-[#D52C2C] transition-all" 
+                  required
+                >
+              </div>
+              <p class="mt-1 text-xs text-gray-500">Masukkan jumlah tiket yang ingin dibeli</p>
+            </div>
+            
+            <div class="pt-2">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-sm text-gray-500">Total:</span>
+                <span class="text-lg font-bold">Rp {{ formatPrice(quantity * (activeTicket?.price || 0)) }}</span>
+              </div>
+              
+              <button 
+                id="pay-button" 
+                type="submit"
+                class="w-full py-3 px-4 bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-white font-medium rounded-lg shadow-md hover:from-[#FF4545] hover:to-[#C52020] focus:outline-none focus:ring-2 focus:ring-[#FF5F5F]/50 transform transition-all duration-200"
+              >
+                <span v-if="isLoading" class="flex items-center justify-center">
+                  <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Memproses...
+                </span>
+                <span v-else>Beli Tiket Sekarang</span>
+              </button>
+            </div>
+          </form>
+          
+          <div v-if="errorMessage" class="mt-4 p-3 bg-red-50 border border-red-100 rounded-lg">
+            <div class="flex items-start">
+              <svg class="w-5 h-5 text-red-500 mt-0.5 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+              </svg>
+              <p class="text-sm text-red-600">{{ errorMessage }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Footer info -->
+      <div class="mt-6 text-center text-sm text-gray-500">
+        <p>Butuh bantuan? <a href="#" class="text-[#D52C2C] hover:text-[#FF5F5F]">Hubungi kami</a></p>
+      </div>
+      
       <div id="snap-container"></div>
     </main>  
   </div>  
 </template>  
 
 <script setup>  
-import { ref, onMounted } from 'vue';  
+import { ref, onMounted, computed } from 'vue';  
 import axios from 'axios';  
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -35,7 +133,18 @@ const quantity = ref(1);
 const ticketDetails = ref("");  
 const activeTicket = ref(null);  
 const errorMessage = ref("");
+const isLoading = ref(false);
 
+// Format price with thousand separator
+function formatPrice(price) {
+  return new Intl.NumberFormat('id-ID').format(price);
+}
+
+// Computed properties
+const totalPrice = computed(() => {
+  if (!activeTicket.value) return 0;
+  return quantity.value * activeTicket.value.price;
+});
 
 // Fungsi untuk mengambil data tiket dari backend  
 async function fetchTicket() {  
@@ -45,7 +154,6 @@ async function fetchTicket() {
 
     const response = await axios.get(`${apiUrl}/api/get-ticket`);  
     console.log("[INFO] Response status:", response.status);  
-    console.log("[INFO] Response headers:", response.headers);  
     console.log("[INFO] Response data:", response.data);  
 
     // Cek apakah response memiliki data tiket  
@@ -67,31 +175,51 @@ async function fetchTicket() {
 
     if (activeTicket.value) {  
       ticketDetails.value = `  
-        <h2 class="text-xl font-bold mb-2">${activeTicket.value.name}</h2>  
-        <p><span class="font-bold">Rp ${activeTicket.value.price}</span></p>  
+        <h2 class="text-2xl font-bold">${activeTicket.value.name}</h2>  
+        <div class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#5EA2EF] to-[#0072F5]">
+          Rp ${formatPrice(activeTicket.value.price)}
+        </div>  
+        <p class="text-gray-500 text-sm">Tersedia hingga 30 April 2025</p>
       `;  
       console.log("[INFO] Ticket details updated:", ticketDetails.value);  
     } else {  
-      ticketDetails.value = "Tiket tidak tersedia";  
+      ticketDetails.value = `
+        <div class="text-center py-6">
+          <svg class="w-16 h-16 mx-auto text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <h3 class="mt-2 text-lg font-medium text-gray-900">Tiket Tidak Tersedia</h3>
+          <p class="mt-1 text-sm text-gray-500">Mohon coba kembali beberapa saat lagi.</p>
+        </div>
+      `;
       console.warn("[WARNING] Tidak ada tiket aktif yang tersedia.");  
     }  
   } catch (error) {  
     console.error("[ERROR] Gagal mengambil tiket:", error.message);  
     console.error("[DETAIL] Error objek:", error);  
-    ticketDetails.value = "Menunggu backend";  
+    ticketDetails.value = `
+      <div class="text-center py-6">
+        <svg class="w-16 h-16 mx-auto text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 9v2m0 4h.01M12 21a9 9 0 110-18 9 9 0 010 18z" />
+        </svg>
+        <h3 class="mt-2 text-lg font-medium text-gray-900">Menunggu Server</h3>
+        <p class="mt-1 text-sm text-gray-500">Sedang menghubungkan ke server...</p>
+      </div>
+    `;  
   }  
 }
 
 async function buyTicket() {
   try {
     errorMessage.value = ""; // Reset error sebelum mulai request
+    isLoading.value = true;
 
     const apiUrl = import.meta.env.VITE_API_BASE;
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     const userId = userData?.userId;
 
     if (!userId) {
-      throw new Error("User ID tidak ditemukan.");
+      throw new Error("User ID tidak ditemukan. Silakan login terlebih dahulu.");
     }
 
     const ticketResponse = await axios.get(`${apiUrl}/api/get-ticket`);
@@ -121,22 +249,22 @@ async function buyTicket() {
           embedId: "snap-container",
           onSuccess: function (result) {
             console.log("[INFO] Pembayaran berhasil:", result);
-            alert("Pembayaran berhasil!");
+            showToast("Pembayaran berhasil!", "success");
             const event = new CustomEvent("paymentSuccess");
             window.dispatchEvent(event);
             router.push("/riwayat");
           },
           onPending: function (result) {
             console.log("[INFO] Pembayaran pending:", result);
-            alert("Pembayaran masih pending!");
+            showToast("Pembayaran masih pending!", "warning");
           },
           onError: function (result) {
             console.log("[ERROR] Pembayaran gagal:", result);
-            alert("Pembayaran gagal!");
+            showToast("Pembayaran gagal!", "error");
           },
           onClose: function () {
             console.log("[INFO] Pembayaran ditutup oleh pengguna.");
-            alert("Pembayaran ditutup!");
+            isLoading.value = false;
           },
         });
       };
@@ -148,11 +276,36 @@ async function buyTicket() {
     console.error("[ERROR] Pembelian tiket gagal:", error.response?.data || error.message);
     
     // Ambil pesan error dari backend dan cetak ke bawah tombol
-    errorMessage.value = error.response?.data?.message || "Pembelian tiket gagal, coba lagi!";
+    errorMessage.value = error.response?.data?.message || error.message || "Pembelian tiket gagal, coba lagi!";
+    isLoading.value = false;
   }
 }
 
-
+// Custom toast notification
+function showToast(message, type = 'success') {
+  const toast = document.createElement('div');
+  toast.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-xs transform transition-all duration-300 ease-out opacity-0 translate-y-2 ${
+    type === 'success' ? 'bg-gradient-to-r from-[#6FEE8D] to-[#17c964] text-white' :
+    type === 'error' ? 'bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-white' :
+    'bg-gradient-to-r from-[#F5A623] to-[#F59123] text-white'
+  }`;
+  
+  toast.innerHTML = message;
+  document.body.appendChild(toast);
+  
+  // Animasi masuk
+  setTimeout(() => {
+    toast.classList.remove('opacity-0', 'translate-y-2');
+  }, 10);
+  
+  // Hapus setelah beberapa detik
+  setTimeout(() => {
+    toast.classList.add('opacity-0', 'translate-y-2');
+    setTimeout(() => {
+      document.body.removeChild(toast);
+    }, 300);
+  }, 4000);
+}
 
 // Panggil fungsi fetchTicket saat komponen dimuat  
 onMounted(() => {  
@@ -161,24 +314,32 @@ onMounted(() => {
 </script>  
 
 <style>  
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 body {  
-  font-family: 'Poppins', sans-serif;  
+  font-family: 'Inter', sans-serif;  
 }  
+
+/* Golden ratio transitions */
+.transition-all {
+  transition-timing-function: cubic-bezier(0.618, 0, 0.382, 1); /* Based on golden ratio */
+}
+
 #snap-container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
   z-index: 50;
-  display: none; /* Awalnya disembunyiin */
+  display: none;
   align-items: center;
   justify-content: center;
 }
 
 #snap-container.active {
-  display: flex; /* Muncul pas dikasih kelas 'active' */
+  display: flex;
 }
-
 </style>
