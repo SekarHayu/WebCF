@@ -179,7 +179,7 @@ async function fetchTicket() {
         <div class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#5EA2EF] to-[#0072F5]">
           Rp ${formatPrice(activeTicket.value.price)}
         </div>  
-        <p class="text-gray-500 text-sm">Penawaran Terbatas</p>
+        <p class="text-gray-500 text-sm">Tersedia hingga 4 April 2025</p>
       `;  
       console.log("[INFO] Ticket details updated:", ticketDetails.value);  
     } else {  
