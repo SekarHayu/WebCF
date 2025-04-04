@@ -30,7 +30,7 @@
               <input class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-300 rounded-lg py-3 pl-10 pr-3 leading-tight focus:outline-none focus:bg-white focus:border-[#D52C2C] focus:ring-2 focus:ring-[#FF5F5F]/20 transition-all" 
                 id="grid-email" 
                 type="email" 
-                placeholder="Contoh : gunturdeveloper@gmail.com">
+                placeholder="example@gmail.com">
             </div>
             <p class="text-gray-500 text-xs mt-1">Harap masukkan email yang valid</p>
           </div>
@@ -54,7 +54,7 @@
           </div>
           
           <div class="flex justify-end mb-6">
-            <a href="#" class="text-sm font-medium text-[#D52C2C] hover:text-[#FF5F5F] transition-colors">
+            <a href="/forgot" class="text-sm font-medium text-[#D52C2C] hover:text-[#FF5F5F] transition-colors">
               Lupa Password?
             </a>
           </div>

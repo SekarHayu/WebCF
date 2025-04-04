@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gray-300 flex justify-center items-center min-h-screen">
+  <div class="bg-gray-300 flex justify-center items-center min-h-screen text-gray-900">
     <!-- Header -->
     <header class="bg-gray/50 backdrop-blur-md w-full fixed top-0 left-0 px-6 py-4 z-10 flex justify-between items-center">
       <h1 id="title" class="text-2xl text-color-primary font-bold cursor-pointer">Chemicfest</h1>
