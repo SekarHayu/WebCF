@@ -34,7 +34,7 @@
           <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-gradient-to-br from-[#FF5F5F]/10 to-[#D52C2C]/5 blur-2xl"></div>
         </div>
         
-        <div class="bg-white shadow-lg rounded-xl p-8 text-center border border-gray-200 relative z-10">
+        <div class="bg-white shadow-lg rounded-xl p-8 text-center border border-gray-200 relative">
           <div class="w-20 h-20 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-6">
             <i class="fas fa-ticket-alt text-3xl text-gray-500"></i>
           </div>
@@ -54,7 +54,7 @@
         <div class="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-gradient-to-br from-[#5EA2EF]/20 to-[#0072F5]/10 blur-3xl"></div>
         <div class="absolute -bottom-20 -right-20 w-60 h-60 rounded-full bg-gradient-to-tl from-[#6FEE8D]/20 to-[#17c964]/10 blur-3xl"></div>
         
-        <div class="bg- shadow-lg rounded-xl p-6 sm:p-8 border border-gray-200 relative z-10">
+        <div class="bg- shadow-lg rounded-xl p-6 sm:p-8 border border-gray-200 relative">
           <div class="flex justify-between items-center mb-6">
             <h2 class="text-xl sm:text-2xl font-bold text-gray-800">Riwayat Tiket</h2>
             <span class="px-3 py-1 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] rounded-full text-white text-xs">{{ ticketHistory.length }} Tiket</span>
