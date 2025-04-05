@@ -62,7 +62,7 @@
             </div>
           </div>
           <div
-            class="group inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 mt-4 bg-gradient-to-r from-[#FF5F5F]/20 to-[#D52C2C]/20 text-[#D52C2C] rounded-full font-medium transform transition-all  text-sm md:text-base">
+            class="group inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 mt-4 md:hidden bg-gradient-to-r from-[#FF5F5F]/20 to-[#D52C2C]/20 text-[#D52C2C] rounded-full font-medium transform transition-all  text-sm md:text-base">
             <i class="fas fa-calendar mr-2"></i>
             <span>MAY 17 2025</span>
           </div>
@@ -76,7 +76,7 @@
           </h1>
 
           <!-- Guest Stars Container - Responsive Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             <!-- Guest Star 1 - Om Wawes -->
             <div
               class="md:col-span-2 relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
