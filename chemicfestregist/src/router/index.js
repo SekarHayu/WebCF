@@ -73,13 +73,13 @@ const routes = [
         path: '/tiket',
         name: 'Tiket',
         component: Tiket,
-      }
+      },
+      {
+        path: '/forgot',
+        name: 'Forgot',
+        component: Forgot,
+      },
     ]
-  },
-  {
-    path: '/forgot',
-    name: 'Forgot',
-    component: Forgot,
   },
 ];
 

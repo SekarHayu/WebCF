@@ -1,39 +1,5 @@
 <template>
   <div class="bg-gradient-to-b from-white to-gray-50 min-h-screen">
-    <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md w-full fixed top-0 left-0 px-6 lg:px-32 py-3 flex justify-between items-center shadow-sm transition-all duration-300 z-20">
-      <!-- Logo & Title -->
-      <router-link to="/" class="flex items-center space-x-2 group">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-300">
-          <span class="text-white font-bold text-lg">C</span>
-        </div>
-        <div>
-          <span class="text-xl font-bold bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-transparent bg-clip-text">
-            Chemicfest<span class="text-sm align-top">#9</span>
-          </span>
-          <div class="text-xs text-gray-500 -mt-1">SMK-SMTI YOGYAKARTA</div>
-        </div>
-      </router-link>
-      
-      <!-- Navigation Links -->
-      <div class="hidden md:flex items-center space-x-4">
-        <router-link to="/login" class="px-4 py-2 text-gray-700 font-medium rounded-lg hover:bg-gray-100 transition-colors">
-          <i class="fas fa-sign-in-alt mr-1"></i> Login
-        </router-link>
-        <router-link to="/registrasi" class="px-4 py-2 bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-white font-medium rounded-lg hover:shadow-md transition-all">
-          <i class="fas fa-user-plus mr-1"></i> Registrasi
-        </router-link>
-      </div>
-      
-      <!-- Hamburger Menu Button (Mobile) -->
-      <button @click="toggleMobileMenu" class="md:hidden flex items-center px-2 py-1" aria-label="Toggle menu">
-        <div class="w-6 h-5 relative flex flex-col justify-between">
-          <span :class="[isMobileMenuOpen ? 'rotate-45 translate-y-2' : '', 'w-full h-0.5 bg-gray-700 transform transition-all duration-300 rounded-full']"></span>
-          <span :class="[isMobileMenuOpen ? 'opacity-0' : 'opacity-100', 'w-full h-0.5 bg-gray-700 transition-opacity duration-300 rounded-full']"></span>
-          <span :class="[isMobileMenuOpen ? '-rotate-45 -translate-y-2' : '', 'w-full h-0.5 bg-gray-700 transform transition-all duration-300 rounded-full']"></span>
-        </div>
-      </button>
-    </header>
     
     <!-- Mobile Menu -->
     <div 
@@ -275,10 +241,6 @@
       </div>
     </div>
     
-    <!-- Footer -->
-    <footer class="py-6 px-4 text-center text-gray-600">
-      <p class="text-sm">© 2025 Chemicfest #9 - OSIS SMK-SMTI YOGYAKARTA</p>
-    </footer>
     
     <!-- Success Modal -->
     <div v-if="showSuccessModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">

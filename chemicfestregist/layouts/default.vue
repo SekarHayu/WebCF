@@ -6,7 +6,7 @@
     <!-- Footer -->
     <footer class="bg-gray-100 py-6 px-4 border-t border-gray-200">
       <div class="max-w-6xl mx-auto text-center">
-        <p class="text-gray-600 text-sm mb-4">© 2025 Chemicfest #9 - Diselenggarakan oleh OSIS SMK-SMTI YOGYAKARTA</p>
+        <p class="text-gray-600 text-sm mb-4">© 2025 Chemicfest #9 - OSIS SMK-SMTI YOGYAKARTA</p>
         <div class="flex justify-center space-x-4">
           <a href="https://www.instagram.com/chemicevents" target="_blank" class="flex gap-1 items-center justify-center text-gray-500 hover:text-[#5EA2EF]">
             <i class="fab fa-instagram"></i>
