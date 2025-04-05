@@ -88,7 +88,7 @@
         <div class="px-6 pb-6">
           <p class="text-center text-sm text-gray-600">
             Belum memiliki akun? 
-            <a href="#" class="font-medium text-[#D52C2C] hover:text-[#FF5F5F]">
+            <a href="/registrasi" class="font-medium text-[#D52C2C] hover:text-[#FF5F5F]">
               Daftar Sekarang
             </a>
           </p>
@@ -107,7 +107,6 @@
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import maskot from '@/assets/img/chemicfest9_maskot.png';
-import { useRouter } from 'vue-router';
 import axios from 'axios';
 
 export default {
@@ -180,7 +179,7 @@ export default {
         }
       } catch (error) {
         console.error("Terjadi kesalahan:", error.response ? error.response.data : error);
-        this.showToast("Terjadi kesalahan server atau login gagal. Silakan coba lagi.", "error");
+        this.showToast(error.response.data.message, "error");
       } finally {
         // Restore button state
         submitButton.disabled = false;
