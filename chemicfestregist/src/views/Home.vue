@@ -61,6 +61,118 @@
           </div>
         </div>
 
+        <!-- Guest Stars Section - Place this after the Hero Section/Festival Logo -->
+        <div class="w-full max-w-6xl mx-auto px-4 mt-12 mb-16">
+          <h1
+            class="font-bold text-3xl mb-8 text-center bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-transparent bg-clip-text">
+            Guest Stars
+          </h1>
+          
+          <!-- Guest Stars Container - Responsive Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4">
+            <!-- Guest Star 1 - Om Wawes -->
+            <div
+              class="md:col-span-2 relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-[#FF5F5F]/80 to-[#D52C2C]/80 opacity-0 group-hover:opacity-80 transition-opacity z-10">
+              </div>
+
+              <img src="/image/omwawes.jpg" alt="Om Wawes" class="w-full h-full object-cover object-center" />
+
+              <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4 md:p-6">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Om Wawes</h3>
+                <p class="text-white/80 text-sm md:text-base">Dangdut</p>
+              </div>
+
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                <div class="text-center text-white px-4">
+                  <p class="mb-4 text-sm md:text-base"><span class="font-bold">Om Wawes</span> akan menghibur Anda
+                    dengan lagu-lagu <br>hits mereka di
+                    Chemicfest #9!</p>
+                  <!-- <button
+                    class="px-4 py-2 md:px-6 md:py-2 bg-white text-[#D52C2C] rounded-full font-bold transform transition-all hover:scale-105 text-sm md:text-base">
+                    <i class="fas fa-music mr-2"></i>Lihat Profile
+                  </button> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Guest Star 2 - Bravesboy -->
+            <!-- <div
+              class="relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-[#FF5F5F]/80 to-[#D52C2C]/80 opacity-0 group-hover:opacity-80 transition-opacity z-10">
+              </div>
+
+              <img src="/image/BRAVESBOY.jpg" alt="Bravesboy" class="w-full h-full object-cover object-top" />
+
+              <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black to-transparent p-4 md:p-6">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Bravesboy</h3>
+                <p class="text-white/80 text-sm md:text-base">Reggae</p>
+              </div>
+
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                <div class="text-center text-white px-4">
+                  <p class="mb-4 text-sm md:text-base"><span class="font-bold">Bravesboy</span> siap menggebrak panggung
+                    Chemicfest #9 dengan
+                    penampilan spesial!</p>
+                  <button
+                    class="px-4 py-2 md:px-6 md:py-2 bg-white text-[#D52C2C] rounded-full font-bold transform transition-all hover:scale-105 text-sm md:text-base">
+                    <i class="fas fa-music mr-2"></i>Lihat Profile
+                  </button>
+                </div>
+              </div>
+            </div> -->
+
+            <!-- Guest Star 3 - Coming Soon -->
+            <div
+              class="relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
+              <div
+                class="absolute inset-0 bg-gradient-to-br from-[#FF5F5F]/80 to-[#D52C2C]/80 opacity-0 group-hover:opacity-80 transition-opacity z-10">
+              </div>
+
+              <!-- Placeholder background with pattern -->
+              <div class="w-full h-full bg-gray-800 flex items-center justify-center">
+                <div class="w-full h-full opacity-20 absolute"
+                  style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23white\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');">
+                </div>
+              </div>
+
+              <!-- Question mark icon -->
+              <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 text-white/50">
+                <i class="fas fa-question-circle text-6xl md:text-7xl animate-pulse"></i>
+              </div>
+
+              <!-- Coming soon text -->
+              <div class="absolute bottom-0 left-0 w-full p-4 md:p-6 z-20">
+                <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Special Guest</h3>
+                <p class="text-white/80 text-sm md:text-base">Coming Soon</p>
+              </div>
+
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
+                <div class="text-center text-white px-4">
+                  <p class="text-lg md:text-xl font-bold mb-2">COMING SOON</p>
+                  <p class="mb-4 text-sm md:text-base">Guest star spesial akan segera diumumkan!</p>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+          <!-- More Info Button - Also Responsive -->
+          <!-- <div class="text-center mt-8">
+            <button
+              class="group inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-[#FF5F5F]/20 to-[#D52C2C]/20 text-[#D52C2C] rounded-full font-medium transform transition-all hover:bg-gradient-to-r hover:from-[#FF5F5F]/30 hover:to-[#D52C2C]/30 hover:scale-105 text-sm md:text-base">
+              <span>Lihat Semua Informasi Guest Star</span>
+              <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </button>
+          </div> -->
+        </div>
+
+
         <!-- Festival Description -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4">
           <div
@@ -84,6 +196,7 @@
             <p class="text-sm opacity-80">Beberapa Guest Star juga turut diundang guna memeriahkan CHEMICFEST #9</p>
           </div>
         </div>
+
 
         <!-- Sponsors Section -->
         <!--<div class="w-full max-w-4xl mx-auto px-4 mt-12">
@@ -213,7 +326,8 @@
                     class="bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 transform transition-all duration-500">
                     <div class="text-2xl font-bold mb-2 text-white">🗓️ Rundown</div>
                     <p class="text-white/90 mb-4">Jangan lewatkan jadwal acara Chemicfest #9 yang spektakuler!</p>
-                    <button disabled class="inline-block px-6 py-3 bg-gray-500 text-white/70 rounded-full font-medium w-full text-center cursor-not-allowed">
+                    <button disabled
+                      class="inline-block px-6 py-3 bg-gray-500 text-white/70 rounded-full font-medium w-full text-center cursor-not-allowed">
                       Segera Hadir
                     </button>
                     <!-- <button
