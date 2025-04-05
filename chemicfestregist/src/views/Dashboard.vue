@@ -1,21 +1,17 @@
 <template>
   <div class="bg-gray-50 flex justify-center items-center min-h-screen relative overflow-hidden text-gray-900 py-10">
-    <!-- Background blur circles -->
     <div class="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-gradient-to-r from-[#5EA2EF]/30 to-[#0072F5]/20 blur-3xl"></div>
     <div class="absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-gradient-to-r from-[#6FEE8D]/30 to-[#17c964]/20 blur-3xl"></div>
     
-    <!-- Main content container (with golden ratio width relative to viewport) -->
-    <div class="w-full max-w-md mx-auto px-6 py-12 relative z-10">
+    <div class="w-full max-w-md mx-auto px-6 py-12 relative">
       <div class="mb-8 text-center">
         <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C]">Chemicfest #9</h1>
         <p class="text-gray-600 mt-2">Jadikan momen terbaikmu</p>
       </div>
       
-      <!-- Card container with golden ratio proportions -->
       <div class="grid grid-cols-1 gap-6">
         <!-- Main card -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-          <!-- Card image with golden ratio height -->
           <div class="relative h-0 pb-[61.8%] overflow-hidden"> <!-- Golden ratio: 1/1.618 = 0.618 or ~61.8% -->
             <div class="absolute inset-0 bg-gradient-to-br from-[#5EA2EF] to-[#0072F5] flex items-center justify-center">
               <div class="text-white text-center p-6">

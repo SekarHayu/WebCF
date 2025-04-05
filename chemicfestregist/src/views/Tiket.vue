@@ -1,11 +1,11 @@
 <template>  
-  <div class="bg-gray-50 flex justify-center items-center min-h-screen relative overflow-hidden text-gray-900">
+  <div class="bg-gray-50 flex justify-center items-center min-h-screen relative overflow-hidden text-gray-900 py-10">
     <!-- Background blur circles -->
     <div class="absolute top-1/4 -left-32 w-96 h-96 rounded-full bg-gradient-to-r from-[#5EA2EF]/30 to-[#0072F5]/20 blur-3xl"></div>
     <div class="absolute bottom-1/4 -right-32 w-80 h-80 rounded-full bg-gradient-to-r from-[#6FEE8D]/30 to-[#17c964]/20 blur-3xl"></div>
     
     <!-- Main Content -->  
-    <main class="flex flex-col items-center justify-center w-full max-w-md mx-auto p-6 relative z-10">
+    <main class="flex flex-col items-center justify-center w-full max-w-md mx-auto p-6 relative">
       <!-- Header with golden ratio spacing -->
       <!-- <div class="w-full mb-8 text-center">
         <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C]">Chemicfest #9</h1>
@@ -179,7 +179,7 @@ async function fetchTicket() {
         <div class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#5EA2EF] to-[#0072F5]">
           Rp ${formatPrice(activeTicket.value.price)}
         </div>  
-        <p class="text-gray-500 text-sm">Tersedia hingga 4 April 2025</p>
+        <p class="text-gray-500 text-sm">Penawaran Terbatas</p>
       `;  
       console.log("[INFO] Ticket details updated:", ticketDetails.value);  
     } else {  
@@ -284,7 +284,7 @@ async function buyTicket() {
 // Custom toast notification
 function showToast(message, type = 'success') {
   const toast = document.createElement('div');
-  toast.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg max-w-xs transform transition-all duration-300 ease-out opacity-0 translate-y-2 ${
+  toast.className = `fixed top-4 right-4 p-4 rounded-lg shadow-lg max-w-xs transform transition-all duration-300 ease-out opacity-0 translate-y-2 ${
     type === 'success' ? 'bg-gradient-to-r from-[#6FEE8D] to-[#17c964] text-white' :
     type === 'error' ? 'bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-white' :
     'bg-gradient-to-r from-[#F5A623] to-[#F59123] text-white'
