@@ -38,26 +38,33 @@
         </div>
 
         <!-- Countdown Timer -->
-        <div class="grid grid-cols-4 justify-center gap-2 lg:gap-4 my-8 px-4">
-          <div
-            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
-            <div id="days" class="text-xl lg:text-3xl font-bold">00</div>
-            <div class="text-xs uppercase tracking-wider">Days</div>
+        <div class="text-center my-8 px-4">
+          <div class="grid grid-cols-4 justify-center gap-2 lg:gap-4">
+            <div
+              class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+              <div id="days" class="text-xl lg:text-3xl font-bold">00</div>
+              <div class="text-xs uppercase tracking-wider">Days</div>
+            </div>
+            <div
+              class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+              <div id="hours" class="text-xl lg:text-3xl font-bold">00</div>
+              <div class="text-xs uppercase tracking-wider">Hours</div>
+            </div>
+            <div
+              class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+              <div id="minutes" class="text-xl lg:text-3xl font-bold">00</div>
+              <div class="text-xs uppercase tracking-wider">Minutes</div>
+            </div>
+            <div
+              class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
+              <div id="seconds" class="text-xl lg:text-3xl font-bold">00</div>
+              <div class="text-xs uppercase tracking-wider">Seconds</div>
+            </div>
           </div>
           <div
-            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
-            <div id="hours" class="text-xl lg:text-3xl font-bold">00</div>
-            <div class="text-xs uppercase tracking-wider">Hours</div>
-          </div>
-          <div
-            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
-            <div id="minutes" class="text-xl lg:text-3xl font-bold">00</div>
-            <div class="text-xs uppercase tracking-wider">Minutes</div>
-          </div>
-          <div
-            class="flex flex-col justify-center items-center bg-gradient-to-br from-[#5EA2EF]/30 to-[#0072F5]/30 backdrop-blur-md p-2 lg:p-4 rounded-xl text-center h-20 lg:h-auto">
-            <div id="seconds" class="text-xl lg:text-3xl font-bold">00</div>
-            <div class="text-xs uppercase tracking-wider">Seconds</div>
+            class="group inline-flex items-center justify-center px-4 py-2 md:px-6 md:py-3 mt-4 bg-gradient-to-r from-[#FF5F5F]/20 to-[#D52C2C]/20 text-[#D52C2C] rounded-full font-medium transform transition-all  text-sm md:text-base">
+            <i class="fas fa-calendar mr-2"></i>
+            <span>MAY 17 2025</span>
           </div>
         </div>
 
@@ -67,7 +74,7 @@
             class="font-bold text-3xl mb-8 text-center bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-transparent bg-clip-text">
             Guest Stars
           </h1>
-          
+
           <!-- Guest Stars Container - Responsive Grid -->
           <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-4">
             <!-- Guest Star 1 - Om Wawes -->
@@ -158,7 +165,7 @@
                   <p class="mb-4 text-sm md:text-base">Guest star spesial akan segera diumumkan!</p>
                 </div>
               </div>
-              
+
             </div>
           </div>
 
