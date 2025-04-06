@@ -46,12 +46,12 @@
               </svg>
               <span class="text-sm text-gray-600">Merchandise eksklusif</span>
             </div>
-            <div class="flex items-center">
+            <!-- <div class="flex items-center">
               <svg class="w-5 h-5 mr-2 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
               </svg>
               <span class="text-sm text-gray-600">Sertifikat kehadiran</span>
-            </div>
+            </div> -->
           </div>
         </div>
 
