@@ -76,10 +76,10 @@
           </h1>
 
           <!-- Guest Stars Container - Responsive Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
             <!-- Guest Star 1 - Om Wawes -->
             <div
-              class="md:col-span-2 relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
+              class="relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
               <div
                 class="absolute inset-0 bg-gradient-to-br from-[#FF5F5F]/80 to-[#D52C2C]/80 opacity-0 group-hover:opacity-80 transition-opacity z-10">
               </div>
@@ -95,7 +95,7 @@
                 class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-20">
                 <div class="text-center text-white px-4">
                   <p class="mb-4 text-sm md:text-base"><span class="font-bold">Om Wawes</span> akan menghibur Anda
-                    dengan lagu-lagu <br>hits mereka di
+                    dengan lagu-lagu hits mereka di
                     Chemicfest #9!</p>
                   <!-- <button
                     class="px-4 py-2 md:px-6 md:py-2 bg-white text-[#D52C2C] rounded-full font-bold transform transition-all hover:scale-105 text-sm md:text-base">
@@ -106,7 +106,7 @@
             </div>
 
             <!-- Guest Star 2 - Bravesboy -->
-            <!-- <div
+            <div
               class="relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
               <div
                 class="absolute inset-0 bg-gradient-to-br from-[#FF5F5F]/80 to-[#D52C2C]/80 opacity-0 group-hover:opacity-80 transition-opacity z-10">
@@ -125,34 +125,31 @@
                   <p class="mb-4 text-sm md:text-base"><span class="font-bold">Bravesboy</span> siap menggebrak panggung
                     Chemicfest #9 dengan
                     penampilan spesial!</p>
-                  <button
+                  <!-- <button
                     class="px-4 py-2 md:px-6 md:py-2 bg-white text-[#D52C2C] rounded-full font-bold transform transition-all hover:scale-105 text-sm md:text-base">
                     <i class="fas fa-music mr-2"></i>Lihat Profile
-                  </button>
+                  </button> -->
                 </div>
               </div>
-            </div> -->
+            </div>
 
             <!-- Guest Star 3 - Coming Soon -->
-            <div
+            <!-- <div
               class="relative group overflow-hidden rounded-2xl transform transition-all duration-500 hover:scale-105 hover:shadow-xl hover:shadow-red-500/20 h-72 sm:h-80 md:h-96">
               <div
                 class="absolute inset-0 bg-gradient-to-br from-[#FF5F5F]/80 to-[#D52C2C]/80 opacity-0 group-hover:opacity-80 transition-opacity z-10">
               </div>
 
-              <!-- Placeholder background with pattern -->
               <div class="w-full h-full bg-gray-800 flex items-center justify-center">
                 <div class="w-full h-full opacity-20 absolute"
                   style="background-image: url('data:image/svg+xml,%3Csvg width=\'100\' height=\'100\' viewBox=\'0 0 100 100\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cpath d=\'M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z\' fill=\'%23white\' fill-opacity=\'0.1\' fill-rule=\'evenodd\'/%3E%3C/svg%3E');">
                 </div>
               </div>
 
-              <!-- Question mark icon -->
               <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 text-white/50">
                 <i class="fas fa-question-circle text-6xl md:text-7xl animate-pulse"></i>
               </div>
 
-              <!-- Coming soon text -->
               <div class="absolute bottom-0 left-0 w-full p-4 md:p-6 z-20">
                 <h3 class="text-xl md:text-2xl font-bold text-white mb-1">Special Guest</h3>
                 <p class="text-white/80 text-sm md:text-base">Coming Soon</p>
@@ -166,7 +163,7 @@
                 </div>
               </div>
 
-            </div>
+            </div> -->
           </div>
 
           <!-- More Info Button - Also Responsive -->
@@ -181,7 +178,7 @@
 
 
         <!-- Festival Description -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           <div
             class="bg-gradient-to-br from-[#5EA2EF]/20 to-[#0072F5]/20 backdrop-blur-md p-6 rounded-xl text-center transform transition-all duration-300 hover:scale-105 hover:shadow-blue-500/20 hover:shadow-lg">
             <i class="fas fa-school text-3xl mb-3 text-blue-400"></i>
