@@ -223,6 +223,7 @@ watch(quantity, () => {
 });
 
 // Function to validate and apply voucher
+// Function to validate and apply voucher
 async function applyVoucher() {
   // If voucher is already applied, this acts as a cancel button
   if (voucherApplied.value) {
@@ -241,39 +242,22 @@ async function applyVoucher() {
     isLoading.value = true;
     voucherMessage.value = "Memeriksa kode voucher...";
     
-    // Here we would normally check the voucher with the backend
     const apiUrl = import.meta.env.VITE_API_BASE;
     
-    // Example API call - replace with your actual endpoint
-    // const response = await axios.post(`${apiUrl}/api/check-voucher`, {
-    //   code: voucherCode.value,
-    //   productId: activeTicket.value?.productId
-    // });
+    const response = await axios.post(`${apiUrl}/api/check-voucher`, {
+      code: voucherCode.value,
+      productId: activeTicket.value?.productId
+    });
     
-    // For demonstration, let's simulate API verification
-    // In a real implementation, you would use the API response
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
-    
-    // Simulate voucher validation - in reality this would come from your API
-    const mockValidVouchers = [
-      { code: "CHEMIC10", discount: 10 },
-      { code: "EVENT25", discount: 25 },
-      { code: "PROMO50", discount: 50 }
-    ];
-    
-    const foundVoucher = mockValidVouchers.find(v => 
-      v.code.toLowerCase() === voucherCode.value.trim().toLowerCase()
-    );
-    
-    if (foundVoucher) {
+    if (response.data.success) {
       voucherValid.value = true;
       voucherApplied.value = true;
-      voucherDiscount.value = foundVoucher.discount;
-      voucherMessage.value = `Voucher berhasil diterapkan! Anda mendapatkan diskon ${foundVoucher.discount}%`;
+      voucherDiscount.value = response.data.discount;
+      voucherMessage.value = `Voucher berhasil diterapkan! Anda mendapatkan diskon ${response.data.discount}%`;
     } else {
       voucherValid.value = false;
       voucherApplied.value = false;
-      voucherMessage.value = "Kode voucher tidak valid atau sudah kedaluwarsa";
+      voucherMessage.value = response.data.message || "Kode voucher tidak valid atau sudah kedaluwarsa";
     }
     
   } catch (error) {
@@ -291,7 +275,7 @@ function resetVoucher() {
   voucherValid.value = false;
   voucherDiscount.value = 0;
   voucherMessage.value = "";
-  // Don't clear the code so user can still see what they entered
+  // We keep the voucherCode.value to allow the user to see what they entered
 }
 
 // Fungsi untuk mengambil data tiket dari backend  
@@ -359,7 +343,7 @@ async function fetchTicket() {
 
 async function buyTicket() {
   try {
-    errorMessage.value = ""; // Reset error sebelum mulai request
+    errorMessage.value = ""; 
     isLoading.value = true;
 
     const apiUrl = import.meta.env.VITE_API_BASE;
@@ -370,17 +354,14 @@ async function buyTicket() {
       throw new Error("User ID tidak ditemukan. Silakan login terlebih dahulu.");
     }
 
-    const ticketResponse = await axios.get(`${apiUrl}/api/get-ticket`);
-    const productId = ticketResponse.data.data[0].productId;
-
-    // Include voucher information in the request if applied
+    // Create request data with voucher information if applied
     const requestData = {
       userId: userId,
-      product_Id: productId, 
+      product_Id: activeTicket.value.productId, 
       quantity: quantity.value,
     };
     
-    // Add voucher code to request if applied and valid
+    // Add voucher information only if a valid voucher is applied
     if (voucherApplied.value && voucherValid.value) {
       requestData.voucherCode = voucherCode.value;
       requestData.voucherDiscount = voucherDiscount.value;
@@ -392,10 +373,9 @@ async function buyTicket() {
     console.log("[INFO] Transaction token:", transactionToken);
 
     if (transactionToken) {
-      // Jika sukses, hapus error message
       errorMessage.value = "";
 
-      // Memuat Snap Midtrans
+      // Load Midtrans Snap
       const snapScript = document.createElement("script");
       snapScript.src = "https://app.midtrans.com/snap/snap.js";
       snapScript.setAttribute("data-client-key", "Mid-client-RE6DmaCD9JsF11Mu");
@@ -431,8 +411,6 @@ async function buyTicket() {
     }
   } catch (error) {
     console.error("[ERROR] Pembelian tiket gagal:", error.response?.data || error.message);
-    
-    // Ambil pesan error dari backend dan cetak ke bawah tombol
     errorMessage.value = error.response?.data?.message || error.message || "Pembelian tiket gagal, coba lagi!";
     isLoading.value = false;
   }
