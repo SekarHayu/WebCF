@@ -78,16 +78,68 @@
               <p class="mt-1 text-xs text-gray-500">Masukkan jumlah tiket yang ingin dibeli</p>
             </div>
             
+            <!-- Voucher Code Input -->
+            <div>
+              <label for="voucherCode" class="block text-sm font-medium text-gray-700 mb-1">Kode Voucher</label>
+              <div class="flex space-x-2">
+                <div class="relative flex-grow">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h8V3a1 1 0 112 0v1h1a2 2 0 012 2v10a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2h1V3a1 1 0 011-1zm11 14V6H4v10h12z" clip-rule="evenodd" />
+                    </svg>
+                  </div>
+                  <input 
+                    id="voucherCode" 
+                    v-model="voucherCode" 
+                    type="text" 
+                    placeholder="Masukkan kode voucher" 
+                    class="block w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF5F5F]/20 focus:border-[#D52C2C] transition-all uppercase"
+                    :disabled="voucherApplied"
+                  >
+                </div>
+                <button 
+                  type="button"
+                  @click="applyVoucher"
+                  class="px-4 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium rounded-lg transition-all"
+                  :class="{ 
+                    'bg-red-500 hover:bg-red-600 text-white': voucherApplied,
+                    'bg-gray-200 hover:bg-gray-300 text-gray-800': !voucherApplied
+                  }"
+                  :disabled="isLoading"
+                >
+                  {{ voucherApplied ? 'Batalkan' : 'Terapkan' }}
+                </button>
+              </div>
+              <p v-if="voucherMessage" class="mt-1 text-xs" :class="voucherValid ? 'text-green-600' : 'text-red-500'">
+                {{ voucherMessage }}
+              </p>
+              <p v-else class="mt-1 text-xs text-gray-500">Masukkan kode voucher jika ada</p>
+            </div>
+            
             <div class="pt-2">
-              <div class="flex items-center justify-between mb-3">
-                <span class="text-sm text-gray-500">Total:</span>
-                <span class="text-lg font-bold">Rp {{ formatPrice(quantity * (activeTicket?.price || 0)) }}</span>
+              <!-- Price breakdown -->
+              <div class="mb-4 p-3 bg-gray-50 rounded-lg">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-gray-600">Harga Tiket:</span>
+                  <span class="font-medium">Rp {{ formatPrice(quantity * (activeTicket?.price || 0)) }}</span>
+                </div>
+                
+                <div v-if="voucherApplied && voucherValid" class="flex items-center justify-between mb-2 text-green-600">
+                  <span class="text-sm">Diskon Voucher ({{ voucherDiscount }}%):</span>
+                  <span class="font-medium">- Rp {{ formatPrice(discountAmount) }}</span>
+                </div>
+                
+                <div class="border-t border-gray-200 pt-2 mt-2 flex items-center justify-between">
+                  <span class="text-sm font-medium">Total Pembayaran:</span>
+                  <span class="text-lg font-bold">Rp {{ formatPrice(finalPrice) }}</span>
+                </div>
               </div>
               
               <button 
                 id="pay-button" 
                 type="submit"
                 class="w-full py-3 px-4 bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C] text-white font-medium rounded-lg shadow-md hover:from-[#FF4545] hover:to-[#C52020] focus:outline-none focus:ring-2 focus:ring-[#FF5F5F]/50 transform transition-all duration-200"
+                :disabled="isLoading || !activeTicket"
               >
                 <span v-if="isLoading" class="flex items-center justify-center">
                   <svg class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -123,7 +175,7 @@
 </template>  
 
 <script setup>  
-import { ref, onMounted, computed } from 'vue';  
+import { ref, onMounted, computed, watch } from 'vue';  
 import axios from 'axios';  
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -135,16 +187,112 @@ const activeTicket = ref(null);
 const errorMessage = ref("");
 const isLoading = ref(false);
 
+// Voucher related states
+const voucherCode = ref("");
+const voucherApplied = ref(false);
+const voucherValid = ref(false);
+const voucherDiscount = ref(0);
+const voucherMessage = ref("");
+
 // Format price with thousand separator
 function formatPrice(price) {
   return new Intl.NumberFormat('id-ID').format(price);
 }
 
 // Computed properties
-const totalPrice = computed(() => {
+const subTotal = computed(() => {
   if (!activeTicket.value) return 0;
   return quantity.value * activeTicket.value.price;
 });
+
+const discountAmount = computed(() => {
+  if (!voucherValid.value || !voucherApplied.value) return 0;
+  return Math.round(subTotal.value * (voucherDiscount.value / 100));
+});
+
+const finalPrice = computed(() => {
+  return subTotal.value - discountAmount.value;
+});
+
+// Reset voucher when quantity changes
+watch(quantity, () => {
+  if (voucherApplied.value) {
+    // Optionally recalculate the voucher effects when quantity changes
+    // or you could reset the voucher entirely with resetVoucher()
+  }
+});
+
+// Function to validate and apply voucher
+async function applyVoucher() {
+  // If voucher is already applied, this acts as a cancel button
+  if (voucherApplied.value) {
+    resetVoucher();
+    return;
+  }
+  
+  // Validate if voucher code is empty
+  if (!voucherCode.value.trim()) {
+    voucherMessage.value = "Masukkan kode voucher terlebih dahulu";
+    voucherValid.value = false;
+    return;
+  }
+  
+  try {
+    isLoading.value = true;
+    voucherMessage.value = "Memeriksa kode voucher...";
+    
+    // Here we would normally check the voucher with the backend
+    const apiUrl = import.meta.env.VITE_API_BASE;
+    
+    // Example API call - replace with your actual endpoint
+    // const response = await axios.post(`${apiUrl}/api/check-voucher`, {
+    //   code: voucherCode.value,
+    //   productId: activeTicket.value?.productId
+    // });
+    
+    // For demonstration, let's simulate API verification
+    // In a real implementation, you would use the API response
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
+    
+    // Simulate voucher validation - in reality this would come from your API
+    const mockValidVouchers = [
+      { code: "CHEMIC10", discount: 10 },
+      { code: "EVENT25", discount: 25 },
+      { code: "PROMO50", discount: 50 }
+    ];
+    
+    const foundVoucher = mockValidVouchers.find(v => 
+      v.code.toLowerCase() === voucherCode.value.trim().toLowerCase()
+    );
+    
+    if (foundVoucher) {
+      voucherValid.value = true;
+      voucherApplied.value = true;
+      voucherDiscount.value = foundVoucher.discount;
+      voucherMessage.value = `Voucher berhasil diterapkan! Anda mendapatkan diskon ${foundVoucher.discount}%`;
+    } else {
+      voucherValid.value = false;
+      voucherApplied.value = false;
+      voucherMessage.value = "Kode voucher tidak valid atau sudah kedaluwarsa";
+    }
+    
+  } catch (error) {
+    console.error("[ERROR] Gagal memvalidasi voucher:", error);
+    voucherValid.value = false;
+    voucherMessage.value = "Gagal memverifikasi voucher. Silakan coba lagi.";
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+// Reset voucher state
+function resetVoucher() {
+  voucherApplied.value = false;
+  voucherValid.value = false;
+  voucherDiscount.value = 0;
+  voucherMessage.value = "";
+  // Don't clear the code so user can still see what they entered
+}
 
 // Fungsi untuk mengambil data tiket dari backend  
 async function fetchTicket() {  
@@ -225,11 +373,20 @@ async function buyTicket() {
     const ticketResponse = await axios.get(`${apiUrl}/api/get-ticket`);
     const productId = ticketResponse.data.data[0].productId;
 
-    const response = await axios.post(`${apiUrl}/api/buy-ticket`, {
+    // Include voucher information in the request if applied
+    const requestData = {
       userId: userId,
       product_Id: productId, 
       quantity: quantity.value,
-    });
+    };
+    
+    // Add voucher code to request if applied and valid
+    if (voucherApplied.value && voucherValid.value) {
+      requestData.voucherCode = voucherCode.value;
+      requestData.voucherDiscount = voucherDiscount.value;
+    }
+
+    const response = await axios.post(`${apiUrl}/api/buy-ticket`, requestData);
 
     const transactionToken = response.data.token;
     console.log("[INFO] Transaction token:", transactionToken);

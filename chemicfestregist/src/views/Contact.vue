@@ -10,7 +10,6 @@
             <div class="md:w-1/2 md:pr-8 mb-6 md:mb-0">
               <h1 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-transparent bg-clip-text">Butuh Bantuan?</h1>
               <p class="text-gray-700 mb-6">Kami siap membantu menjawab semua pertanyaan Anda tentang Chemicfest #9. Tim support kami tersedia untuk memastikan pengalaman Anda berjalan lancar.</p>
-              
               <div class="hidden md:block">
                 <div class="flex items-center mb-4">
                   <div class="w-10 h-10 rounded-full bg-[#5EA2EF]/20 flex items-center justify-center mr-3">
