@@ -125,9 +125,9 @@
                 </div>
                 
                 <div v-if="voucherApplied && voucherValid" class="flex items-center justify-between mb-2 text-green-600">
-                  <span class="text-sm">Diskon Voucher ({{ voucherDiscount }}%):</span>
-                  <span class="font-medium">- Rp {{ formatPrice(discountAmount) }}</span>
-                </div>
+                  <span class="text-sm">Diskon Voucher:</span>
+                  <span class="font-medium">- Rp {{ formatPrice(voucherDiscount) }}</span>
+                </div> 
                 
                 <div class="border-t border-gray-200 pt-2 mt-2 flex items-center justify-between">
                   <span class="text-sm font-medium">Total Pembayaran:</span>
@@ -205,13 +205,8 @@ const subTotal = computed(() => {
   return quantity.value * activeTicket.value.price;
 });
 
-const discountAmount = computed(() => {
-  if (!voucherValid.value || !voucherApplied.value) return 0;
-  return Math.round(subTotal.value * (voucherDiscount.value / 100));
-});
-
 const finalPrice = computed(() => {
-  return subTotal.value - discountAmount.value;
+  return subTotal.value - voucherDiscount.value;
 });
 
 // Reset voucher when quantity changes
@@ -248,12 +243,12 @@ async function applyVoucher() {
       code: voucherCode.value,
       productId: activeTicket.value?.productId
     });
-    
-    if (response.data.success) {
+    console.log("[INFO] Voucher response:", response.data);
+    if (response.data.code === 200) {
       voucherValid.value = true;
       voucherApplied.value = true;
-      voucherDiscount.value = response.data.discount;
-      voucherMessage.value = `Voucher berhasil diterapkan! Anda mendapatkan diskon ${response.data.discount}%`;
+      voucherDiscount.value = response.data.data.discountAmount;
+      voucherMessage.value = `Voucher berhasil diterapkan! Anda mendapatkan potongan harga Rp ${formatPrice(response.data.data.discountAmount)}`;
     } else {
       voucherValid.value = false;
       voucherApplied.value = false;
