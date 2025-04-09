@@ -84,7 +84,7 @@
             </div>
 
             <!-- Voucher Code Input -->
-            <!-- <div>
+            <div>
               <label for="voucherCode" class="block text-sm font-medium text-gray-700 mb-1">Kode Voucher</label>
               <div class="flex space-x-2">
                 <div class="relative flex-grow">
@@ -113,7 +113,7 @@
                 {{ voucherMessage }}
               </p>
               <p v-else class="mt-1 text-xs text-gray-500">Masukkan kode voucher jika ada</p>
-            </div> -->
+            </div>
 
             <div class="pt-2">
               <!-- Price breakdown -->
