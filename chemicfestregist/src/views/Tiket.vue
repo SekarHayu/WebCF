@@ -76,11 +76,11 @@
                       clip-rule="evenodd" />
                   </svg>
                 </div>
-                <input id="quantity" v-model="quantity" type="number" min="1"
+                <input id="quantity" v-model="quantity" type="number" min="1" disabled
                   class="block w-full pl-10 pr-3 py-3 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF5F5F]/20 focus:border-[#D52C2C] transition-all"
                   required>
               </div>
-              <p class="mt-1 text-xs text-gray-500">Masukkan jumlah tiket yang ingin dibeli</p>
+              <!-- <p class="mt-1 text-xs text-gray-500">Masukkan jumlah tiket yang ingin dibeli</p> -->
             </div>
 
             <!-- Voucher Code Input -->
