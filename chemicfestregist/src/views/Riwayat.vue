@@ -106,7 +106,7 @@
                   <i class="fas fa-calendar-alt mr-1"></i> 17 Mei 2025
                 </div>
                 <div class="flex items-center text-xs text-gray-600">
-                  <i class="fas fa-map-marker-alt mr-1"></i>Sportorium UMY
+                  <i class="fas fa-map-marker-alt mr-1"></i>RRI Pro 2
                 </div>
               </div>
             </div>

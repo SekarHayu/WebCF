@@ -240,13 +240,4 @@ body {
   transition-duration: 150ms;
 }
 
-/* Proporsi golden ratio (1:1.618) untuk beberapa elemen */
-.golden-ratio-h {
-  height: 0;
-  padding-bottom: 61.8%; /* 1/1.618 * 100% */
-}
-
-.golden-ratio-w {
-  width: 61.8%; /* 1/1.618 * 100% */
-}
 </style>
