@@ -90,7 +90,7 @@
                     <!-- Lihat E-Ticket Button -->
                     <a :href="ticket.urlTicket.eTicket" class="flex-1 sm:flex-none px-4 py-2 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] rounded-lg text-white text-sm hover:opacity-90 transition-opacity flex items-center justify-center">
                       <i class="fas fa-eye mr-2"></i>Lihat E-Ticket
-                    </a>
+                    </a> 
                     
                     <!-- Download Button -->
                     <!-- <a :href="ticket.urlTicket.downloadETicket" class="flex-1 sm:flex-none px-4 py-2 bg-gray-200 rounded-lg text-gray-700 text-sm hover:bg-gray-300 transition-all flex items-center justify-center">
@@ -144,7 +144,6 @@ const hasTicketHistory = ref(false);
 const loading = ref(true);
 const errorMessage = ref('');
 const apiUrl = import.meta.env.VITE_API_BASE; // Ambil URL API dari environment variable
-
 const checkTicketHistory = async () => {
   errorMessage.value = '';
   loading.value = true;
@@ -159,32 +158,40 @@ const checkTicketHistory = async () => {
       return;
     }
 
-    // Kirim userId ke API
     const response = await axios.post(`${apiUrl}/api/have-ticket`, {
       userId: userId,
     });
 
-    // Update data riwayat tiket jika ada
-    if (response.status === 200) {
-      const data = response.data.data; // Ambil array data dari respons
-      let allTickets = [];
+    if (response.status === 200 && Array.isArray(response.data.data)) {
+      const allTickets = [];
 
-      // Loop melalui setiap transaksi dan ambil tiket
-      data.forEach(transaction => {
+      response.data.data.forEach(transaction => {
+        const baseInfo = {
+          transactionId: transaction.transactionId,
+          ticketType: transaction.ticketOffline?.ticket_type || '',
+          ticketName: transaction.ticketOffline?.name || '',
+          ticketPrice: transaction.ticketOffline?.price || 0,
+          unitSymbol: transaction.ticketOffline?.unitSymbol || '',
+        };
+
         if (Array.isArray(transaction.tickets)) {
-          allTickets = allTickets.concat(transaction.tickets);
+          transaction.tickets.forEach(ticket => {
+            allTickets.push({
+              ...ticket,
+              ...baseInfo,
+              urlTicket: ticket.urlTicket || {}
+            });
+          });
         }
       });
-
-      console.log("Tiket yang ditemukan:", allTickets);
 
       if (allTickets.length > 0) {
         ticketHistory.value = allTickets;
         hasTicketHistory.value = true;
         console.log("Riwayat tiket berhasil diambil:", ticketHistory.value);
       } else {
-        console.log("Tidak ada riwayat tiket.");
         hasTicketHistory.value = false;
+        console.log("Tidak ada tiket.");
       }
     } else {
       console.error("Gagal mendapatkan tiket, status:", response.status);
@@ -197,6 +204,7 @@ const checkTicketHistory = async () => {
     loading.value = false;
   }
 };
+
 
 // Fungsi untuk showPdf (for future implementation)
 const showPdf = (ticketId) => {
