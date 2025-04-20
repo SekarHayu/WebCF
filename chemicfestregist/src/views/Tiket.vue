@@ -556,7 +556,7 @@ async function buyTicket() {
 
       // Load Midtrans Snap
       const snapScript = document.createElement("script");
-      snapScript.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+      snapScript.src = "https://app.midtrans.com/snap/snap.js";
       snapScript.setAttribute("data-client-key", "SB-Mid-client-eM1rAxpZNCxa0W-q");
       snapScript.onload = () => {
         // Pastikan snap.js sudah terload sebelum melakukan pembayaran
