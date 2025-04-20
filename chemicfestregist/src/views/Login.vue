@@ -114,6 +114,7 @@ export default {
   data() {
     return {  
       maskot: maskot,
+      isLoading: false,
     };
   },
   mounted() {
@@ -146,10 +147,7 @@ export default {
       }
       
       // Tambahkan loading state
-      const submitButton = loginForm.querySelector('button[type="submit"]');
-      const originalText = submitButton.innerHTML;
-      submitButton.disabled = true;
-      submitButton.innerHTML = '<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Memproses...';
+      this.isLoading = true;
 
       try {
         // Request login ke backend
@@ -159,12 +157,13 @@ export default {
           password: password,
         });
 
-        if (response.data.code === 200) {
+        if (response.data.code === 200 || response.data.code === 204) {
           this.showToast("Login berhasil! Selamat datang, " + email);
           // Simpan data ke Session Storage
           sessionStorage.setItem("userData", JSON.stringify({ 
             email, 
             userId: response.data.userData.id,
+            role: response.data.userData.role,
             isLoggedIn: true, 
             sessionId: response.data.sessionId, 
             expiredAt: response.data.expiredAt 
@@ -182,8 +181,7 @@ export default {
         this.showToast(error.response.data.message, "error");
       } finally {
         // Restore button state
-        submitButton.disabled = false;
-        submitButton.innerHTML = originalText;
+        this.isLoading = false; 
       }
     });
   },
@@ -240,4 +238,13 @@ body {
   transition-duration: 150ms;
 }
 
+/* Proporsi golden ratio (1:1.618) untuk beberapa elemen */
+.golden-ratio-h {
+  height: 0;
+  padding-bottom: 61.8%; /* 1/1.618 * 100% */
+}
+
+.golden-ratio-w {
+  width: 61.8%; /* 1/1.618 * 100% */
+}
 </style>
