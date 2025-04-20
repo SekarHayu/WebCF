@@ -15,6 +15,68 @@
         <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C]">Chemicfest #9</h1>
         <p class="text-gray-600 mt-2">Pembelian Tiket</p>
       </div> -->
+       <!-- Pop-up Modal for Document Verification -->
+      <div v-if="showBlockModal && role === 'alumni'" class="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 shadow-lg w-96">
+          <h2 class="text-xl font-semibold mb-4 text-center">Verifikasi Dokumen</h2>
+          <p class="mb-4 text-center">Untuk melanjutkan, silakan unggah ijazah anda sebagai bukti alumni.</p>
+
+          <!-- File upload form -->
+          <input type="file" @change="handleFileUpload" class="w-full text-dark dark:text-white text-sm bg-white dark:bg-gray-700 border  dark:border-gray-600 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-white-1 dark:file:bg-gray-800 file:hover:brightness-150 file:text-black dark:file:text-white rounded-lg"  />
+
+          <!-- Submit Button -->
+          <button
+            @click="submitDocument"
+            :disabled="isLoading || !selectedFile"
+            class="bg-blue-500 text-white px-4 mx-28 flex py-2 rounded mt-4 disabled:bg-gray-400"
+          >
+            Upload  
+          </button>
+
+          <!-- Loading Spinner -->
+          <div v-if="isLoading" class="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+            <svg class="w-16 h-16 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4V8m0 4v4m-4 0H8m4 0h4m-4-4h4m-4 0H8" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="showBlockModal && role === 'keluarga_siswa'" class="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 shadow-lg w-96">
+          <h2 class="text-xl font-semibold mb-4 text-center">Verifikasi Dokumen</h2>
+          <p class="mb-4 text-center">Untuk melanjutkan, silakan unggah kartu keluarga anda sebagai bukti keluarga siswa.</p>
+
+          <!-- File upload form -->
+          <input type="file" @change="handleFileUpload" class="w-full text-dark dark:text-white text-sm bg-white dark:bg-gray-700 border  dark:border-gray-600 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-white-1 dark:file:bg-gray-800 file:hover:brightness-150 file:text-black dark:file:text-white rounded-lg"  />
+
+          <!-- Submit Button -->
+          <button
+            @click="submitDocument"
+            :disabled="isLoading || !selectedFile"
+            class="bg-blue-500 text-white px-4 mx-28 flex py-2 rounded mt-4 disabled:bg-gray-400"
+          >
+            Upload  
+          </button>
+
+          <!-- Loading Spinner -->
+          <div v-if="isLoading" class="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+            <svg class="w-16 h-16 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4V8m0 4v4m-4 0H8m4 0h4m-4-4h4m-4 0H8" />
+            </svg>
+          </div>
+        </div>
+      </div>
+     <!--
+      <div v-if="showBlockModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-2xl shadow-lg max-w-md text-center">
+          <h2 class="text-xl font-bold mb-2 text-red-600">⚠️ Belum Bisa Beli Tiket</h2>
+          <p class="text-gray-700">Dokumen kamu belum diverifikasi. Silakan tunggu proses verifikasi sebelum membeli tiket.</p>
+          <button @click="() => {}" class="mt-4 px-4 py-2 bg-gray-400 text-white rounded-xl cursor-not-allowed" disabled>
+            Belum Bisa Akses
+          </button>
+        </div>
+      </div>-->
 
       <!-- Card Pembelian Tiket -->
       <div class="bg-white shadow-lg rounded-xl overflow-hidden w-full">
@@ -182,6 +244,11 @@ import axios from 'axios';
 import { useRouter } from "vue-router";
 const router = useRouter();
 
+//verif dokumen
+const showBlockModal = ref(false)
+const isChecking = ref(true)
+const selectedFile = ref(null);
+
 // Reactive State  
 const quantity = ref(1);
 const ticketDetails = ref("");
@@ -195,6 +262,52 @@ const voucherApplied = ref(false);
 const voucherValid = ref(false);
 const voucherDiscount = ref(0);
 const voucherMessage = ref("");
+
+const userData = JSON.parse(sessionStorage.getItem("userData"));
+const userId = userData?.userId;
+const role = userData?.role; 
+
+function handleFileUpload(event) {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+  }
+}
+
+async function submitDocument() {
+  if (!selectedFile.value) {
+    return;
+  }
+
+  isLoading.value = true;
+  const apiUrl = import.meta.env.VITE_API_BASE;
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userId = userData?.userId;
+
+  const formData = new FormData();
+  formData.append('userId', userId); // <== HARUS SESUAI DENGAN backend pakai req.body.userId
+  formData.append('dokumen', selectedFile.value); // <== HARUS SESUAI DENGAN upload.single("dokumen")
+
+  try {
+    const response = await axios.post(`${apiUrl}/api/send-dokumen`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+
+    if (response.data?.filename) {
+      alert("Dokumen berhasil diupload!");
+      showBlockModal.value = false;
+    } else {
+      alert("Gagal mengupload dokumen. Coba lagi.");
+    }
+  } catch (error) {
+    console.error("Error uploading document:", error);
+    alert("Terjadi kesalahan. Coba lagi.");
+  } finally {
+    isLoading.value = false;
+  }
+}
 
 // Format price with thousand separator
 function formatPrice(price) {
@@ -271,7 +384,17 @@ async function fetchTicket() {
     const apiUrl = import.meta.env.VITE_API_BASE;
     console.log("[INFO] Fetching from:", apiUrl);
 
-    const response = await axios.get(`${apiUrl}/api/get-ticket`);
+    const userData = JSON.parse(sessionStorage.getItem("userData"));
+    const role = userData?.role;
+
+    if (!role) {
+      console.error("[ERROR] Role tidak ditemukan di sessionStorage");
+      throw new Error("Role tidak ditemukan.");
+    }
+
+    const response = await axios.post(`${apiUrl}/api/get-ticket`, {
+      role: role,
+    });
     console.log("[INFO] Response status:", response.status);
     console.log("[INFO] Response data:", response.data);
 
@@ -433,8 +556,8 @@ async function buyTicket() {
 
       // Load Midtrans Snap
       const snapScript = document.createElement("script");
-      snapScript.src = "https://app.midtrans.com/snap/snap.js";
-      snapScript.setAttribute("data-client-key", "Mid-client-RE6DmaCD9JsF11Mu");
+      snapScript.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+      snapScript.setAttribute("data-client-key", "SB-Mid-client-eM1rAxpZNCxa0W-q");
       snapScript.onload = () => {
         // Pastikan snap.js sudah terload sebelum melakukan pembayaran
         const transactionToken = sessionStorage.getItem("transactionToken");
@@ -508,10 +631,41 @@ function showToast(message, type = 'success') {
   }, 4000);
 }
 
+const apiUrl = import.meta.env.VITE_API_BASE
 // Panggil fungsi fetchTicket saat komponen dimuat  
-onMounted(() => {
-  fetchTicket();
-});  
+onMounted(async () => {
+  // Ambil tiket dulu (kalau butuh nunggu hasilnya, pakai await)
+  await fetchTicket();
+
+  const userData = JSON.parse(sessionStorage.getItem("userData"));
+  const userId = userData?.userId;
+  const role = userData?.role;
+
+  if (!role || !userId) {
+    console.warn("[INFO] Tidak ada role atau userId di session.");
+    return;
+  }
+
+  // Role yang perlu diverifikasi
+  if (["alumni", "keluarga_siswa"].includes(role)) {
+    try {
+      
+      const apiUrl = import.meta.env.VITE_API_BASE
+      const response = await axios.get(`${apiUrl}/api/all-request?userId=${userId}`);
+      const verificationData = response.data.data.find(item => item.userId === userId)
+
+
+      // Kalau belum ada data verifikasi
+      if (!verificationData) {
+        showBlockModal.value = true;
+      }
+      console.log("Sudah pernah upload dokumen")
+    } catch (error) {
+      console.warn("[INFO] Tidak ditemukan data verifikasi atau gagal fetch:", error);
+      showBlockModal.value = true; // Anggap belum submit
+    }
+  }
+});
 </script>
 
 <style>
