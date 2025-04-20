@@ -68,167 +68,818 @@
           <h2 class="text-xl font-bold text-gray-800">Data Registrasi</h2>
           <p class="text-gray-600 text-sm">Lengkapi data di bawah ini dengan informasi yang valid</p>
         </div>
-
-        <form id="registerForm" class="p-6" @submit.prevent="handleRegister">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-            <!-- Nama Lengkap -->
-            <div class="col-span-2 md:col-span-1">
-              <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-first-name">
-                Nama Lengkap
+        <ul>
+          <label class="block text-gray-700 pl-6 mt-3 text-sm font-medium mb-2" for="grid-first-name">
+                Pilih role
               </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="fas fa-user text-gray-400"></i>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-0 mt-3 text-dark pl-6 mb-6  text-gray-600 text-sm mx-auto ">
+                 <div class="form-control my-auto">
+                    <label class="label cursor-pointer gap-2 justify-start">
+                       <input 
+                          v-model="selectedRole" 
+                          value="pelajar" 
+                          type="radio" 
+                          name="role" 
+                          class="radio checked:bg-dark dark:checked:bg-white"
+                          @change="console.log('ROLE BARU:', selectedRole)" 
+                        />
+                      <span class="label-text pl-2">Pelajar</span>
+                    </label>
+                  </div>
+                  <div class="form-control my-auto">
+                    <label class="label cursor-pointer gap-2 justify-start">
+                          <input 
+        v-model="selectedRole" 
+        value="guru" 
+        type="radio" 
+        name="role" 
+        class="radio checked:bg-dark dark:checked:bg-white"
+        @change="console.log('ROLE BARU:', selectedRole)" 
+  />
+                      <span class="label-text pl-2">Guru</span>
+                    </label>
+                  </div>
+                  <div class="form-control my-auto">
+                    <label class="label cursor-pointer gap-2 justify-start">
+                      <input 
+    v-model="selectedRole" 
+    value="alumni" 
+    type="radio" 
+    name="role" 
+    class="radio checked:bg-dark dark:checked:bg-white"
+    @change="console.log('ROLE BARU:', selectedRole)" 
+  />
+                      <span class="label-text pl-2">Alumni</span>
+                    </label>
+                  </div>
+                  <div class="form-control my-auto">
+                    <label class="label cursor-pointer gap-2 justify-start">
+                      <input 
+    v-model="selectedRole" 
+    value="keluarga_siswa" 
+    type="radio" 
+    name="role" 
+    class="radio checked:bg-dark dark:checked:bg-white"
+    @change="console.log('ROLE BARU:', selectedRole)" 
+  />
+                      <span class="label-text pl-2">Keluarga Siswa</span>
+                    </label>
+                  </div>  
+                  <div class="form-control my-auto">
+                    <label class="label cursor-pointer gap-2 justify-start">
+                      <input 
+    v-model="selectedRole" 
+    value="mahasiswa" 
+    type="radio" 
+    name="role" 
+    class="radio checked:bg-dark dark:checked:bg-white"
+    @change="console.log('ROLE BARU:', selectedRole)" 
+  />
+                      <span class="label-text pl-2">Mahasiswa</span>
+                    </label>
+                  </div>
                 </div>
-                <input
-                  class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
-                  id="grid-first-name" type="text" v-model="name" placeholder="Contoh: John Doe">
-              </div>
-              <p class="text-gray-500 text-xs mt-1">Harap masukkan nama yang valid</p>
-            </div>
+                </ul>
 
-            <!-- Username -->
-            <div class="col-span-2 md:col-span-1">
-              <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-username">
-                Username
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="fas fa-at text-gray-400"></i>
-                </div>
-                <input
-                  class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
-                  id="grid-username" type="text" v-model="username" placeholder="Contoh: johndoe">
-              </div>
-              <p class="text-gray-500 text-xs mt-1">Username minimal 5 karakter</p>
-            </div>
+          
 
-            <!-- Email -->
-            <div class="col-span-2">
-              <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-email">
-                Email
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="fas fa-envelope text-gray-400"></i>
-                </div>
-                <input
-                  class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
-                  id="grid-email" type="email" v-model="email" placeholder="Contoh: example@gmail.com">
-              </div>
-              <p class="text-gray-500 text-xs mt-1">Email akan digunakan untuk verifikasi dan notifikasi penting</p>
-            </div>
+            <div v-if="selectedRole" class="mt-6 p-6" :key="role">
+              <h2 class="text-xl font-bold text-gray-800">Form Registrasi untuk {{ selectedRole }}</h2>
+              <p class="text-gray-600 text-sm">Lengkapi data sesuai dengan role yang dipilih.</p>
 
-            <!-- Password -->
-            <div class="col-span-2 md:col-span-1">
-              <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-password">
-                Password
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="fas fa-lock text-gray-400"></i>
-                </div>
-                <input
-                  class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
-                  id="grid-password" type="password" v-model="password" placeholder="*****">
-              </div>
-              <p class="text-gray-500 text-xs mt-1">Password minimal 8 karakter</p>
-            </div>
+          <!-- Form untuk Siswa -->
+              <div v-if="selectedRole === 'pelajar'">
+                <form id="registerForm" class="p-6" @submit.prevent="handleRegister">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Nama Lengkap -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-first-name">
+                        Nama Lengkap
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-first-name" type="text" v-model="formPelajar.name" placeholder="Contoh: John Doe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Harap masukkan nama yang valid</p>
+                    </div>
 
-            <!-- Konfirmasi Password -->
-            <div class="col-span-2 md:col-span-1">
-              <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-checkpassword">
-                Konfirmasi Password
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="fas fa-lock text-gray-400"></i>
-                </div>
-                <input
-                  class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
-                  id="grid-checkpassword" type="password" v-model="checkPassword" placeholder="*****">
-              </div>
-              <p class="text-gray-500 text-xs mt-1">Pastikan password sama dengan di atas</p>
-            </div>
+                    <!-- Username -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-username">
+                        Username
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-at text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-username" type="text" v-model="formPelajar.username" placeholder="Contoh: johndoe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Username minimal 5 karakter</p>
+                    </div>
 
-            <!-- Nomor Telepon -->
-            <div class="col-span-2 md:col-span-1">
-              <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-telephone">
-                Nomor Telepon
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="fas fa-phone text-gray-400"></i>
-                </div>
-                <input
-                  class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
-                  id="grid-telephone" type="text" v-model="phoneNumber" placeholder="Contoh: 08123456789">
-              </div>
-              <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
-            </div>
+                    <!-- Email -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-email">
+                        Email
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-email" type="email" v-model="formPelajar.email" placeholder="Contoh: example@gmail.com">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Email akan digunakan untuk verifikasi dan notifikasi penting</p>
+                    </div>
 
-            <!-- Role -->
-            <div class="col-span-2 md:col-span-1">
-              <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-role">
-                Role
-              </label>
-              <div class="relative">
-                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <i class="fas fa-user-tag text-gray-400"></i>
-                </div>
-                <select id="grid-role"
-                  class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
-                  v-model="role">
-                  <option value="" disabled selected>Pilih role</option>
-                  <option value="pelajar">Pelajar</option>
-                  <option value="guru">Guru</option>
-                  <option value="mahasiswa">Mahasiswa</option>
-                  <option value="umum">Umum</option>
-                </select>
-                <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                  <i class="fas fa-chevron-down text-gray-400"></i>
-                </div>
-              </div>
-              <p class="text-gray-500 text-xs mt-1">Digunakan untuk penawaran khusus</p>
-            </div>
-          </div>
+                    <!-- Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-password">
+                        Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-password" type="password" v-model="formPelajar.password" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Password minimal 8 karakter</p>
+                    </div>
 
-          <!-- Terms and Conditions -->
-          <!-- <div class="mt-6 mb-8">
-            <div class="flex items-start">
-              <div class="flex items-center h-5">
-                <input id="terms" type="checkbox" v-model="termsAccepted"
-                  class="h-4 w-4 text-[#5EA2EF] border-gray-300 rounded focus:ring-[#5EA2EF]">
-              </div>
-              <div class="ml-3 text-sm">
-                <label for="terms" class="text-gray-700">Saya menyetujui <a href="#"
-                    class="text-[#5EA2EF] hover:underline">syarat dan ketentuan</a> yang berlaku</label>
-              </div>
-            </div>
-          </div> -->
+                    <!-- Konfirmasi Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-checkpassword">
+                        Konfirmasi Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-checkpassword" type="password" v-model="formPelajar.checkpassword" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Pastikan password sama dengan di atas</p>
+                    </div>
 
-          <!-- Submit Button -->
-          <div class="flex flex-col sm:flex-row gap-4 mt-6">
-            <button type="submit" :disabled="isLoading"
-              class="flex-1 py-3 px-6 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-white font-medium rounded-lg hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5EA2EF] flex justify-center items-center">
-              <span v-if="isLoading" class="mr-2">
-                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                  </path>
-                </svg>
-              </span>
-              <span>{{ isLoading ? 'Memproses...' : 'Daftar Sekarang' }}</span>
-            </button>
-            <a href="/login"
-              class="flex-1 py-3 px-6 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-center">
-              Sudah Punya Akun
-            </a>
-          </div>
-        </form>
+                    <!-- Nomor Telepon -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-telephone">
+                        Nomor Telepon
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-phone text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-telephone" type="text" v-model="formPelajar.phoneNumber" placeholder="Contoh: 08123456789">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
+                    </div>
+
+                    
+                  </div>
+
+                  <!-- Terms and Conditions -->
+                  <!-- <div class="mt-6 mb-8">
+                    <div class="flex items-start">
+                      <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" v-model="termsAccepted"
+                          class="h-4 w-4 text-[#5EA2EF] border-gray-300 rounded focus:ring-[#5EA2EF]">
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <label for="terms" class="text-gray-700">Saya menyetujui <a href="#"
+                            class="text-[#5EA2EF] hover:underline">syarat dan ketentuan</a> yang berlaku</label>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Submit Button -->
+                  <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <button type="submit" :disabled="isLoading"
+                      class="flex-1 py-3 px-6 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-white font-medium rounded-lg hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5EA2EF] flex justify-center items-center">
+                      <span v-if="isLoading" class="mr-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                          </path>
+                        </svg>
+                      </span>
+                      <span>{{ isLoading ? 'Memproses...' : 'Daftar Sekarang' }}</span>
+                    </button>
+                    <a href="/login"
+                      class="flex-1 py-3 px-6 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-center">
+                      Sudah Punya Akun
+                    </a>
+                  </div>
+                </form>
+              </div>
+              <div v-if="selectedRole === 'alumni'" class="text-sm">
+                        
+                <form id="registerForm" class="p-6" @submit.prevent="handleRegister">
+                  <!--
+                  <div class="w-full mb-2">
+                           Area unggahan 
+                          <p class="mb-2 ms-0 text-gray-700 text-sm font-medium  ">Upload Ijazah</p>
+                          <div class="mx-auto">
+                            <input id="ijazah" type="file" @change="handleFileChange('alumni', $event)"
+                              class="w-full text-dark dark:text-white text-sm bg-white dark:bg-gray-700 border  dark:border-gray-600 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-white-1 dark:file:bg-gray-800 file:hover:brightness-150 file:text-black dark:file:text-white rounded-lg" />
+                          </div>
+                        </div>-->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Nama Lengkap -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-first-name">
+                        Nama Lengkap
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-first-name" type="text" v-model="formAlumni.name" placeholder="Contoh: John Doe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Harap masukkan nama yang valid</p>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-username">
+                        Username
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-at text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-username" type="text" v-model="formAlumni.username" placeholder="Contoh: johndoe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Username minimal 5 karakter</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-email">
+                        Email
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-email" type="email" v-model="formAlumni.email" placeholder="Contoh: example@gmail.com">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Email akan digunakan untuk verifikasi dan notifikasi penting</p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-password">
+                        Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-password" type="password" v-model="formAlumni.password" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Password minimal 8 karakter</p>
+                    </div>
+
+                    <!-- Konfirmasi Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-checkpassword">
+                        Konfirmasi Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-checkpassword" type="password" v-model="formAlumni.checkpassword" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Pastikan password sama dengan di atas</p>
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-telephone">
+                        Nomor Telepon
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-phone text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-telephone" type="text" v-model="formAlumni.phoneNumber" placeholder="Contoh: 08123456789">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
+                    </div>
+
+                  
+                  </div>
+
+                  <!-- Terms and Conditions -->
+                  <!-- <div class="mt-6 mb-8">
+                    <div class="flex items-start">
+                      <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" v-model="termsAccepted"
+                          class="h-4 w-4 text-[#5EA2EF] border-gray-300 rounded focus:ring-[#5EA2EF]">
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <label for="terms" class="text-gray-700">Saya menyetujui <a href="#"
+                            class="text-[#5EA2EF] hover:underline">syarat dan ketentuan</a> yang berlaku</label>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Submit Button -->
+                  <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <button type="submit" :disabled="isLoading"
+                      class="flex-1 py-3 px-6 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-white font-medium rounded-lg hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5EA2EF] flex justify-center items-center">
+                      <span v-if="isLoading" class="mr-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                          </path>
+                        </svg>
+                      </span>
+                      <span>{{ isLoading ? 'Memproses...' : 'Daftar Sekarang' }}</span>
+                    </button>
+                    <a href="/login"
+                      class="flex-1 py-3 px-6 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-center">
+                      Sudah Punya Akun
+                    </a>
+                  </div>
+                </form>
+              </div>
+              <div v-if="selectedRole === 'guru'">
+                <form id="registerForm" class="p-6" @submit.prevent="handleRegister">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    
+                  <!-- Pilih Ruangan -->
+                  <div class="col-span-2 md:col-span-1">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">Pilih Ruangan</label>
+                    <select
+                      v-model="formGuru.room"
+                      class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                    >
+                      <option disabled value="">-- Pilih Ruangan --</option>
+                      <option  v-for="(room, index) in roomOptions" :key="index" :value="room">
+                        {{ room }}
+                      </option>
+                    </select>
+                  </div>
+
+                  <!-- Pilih Nama -->
+                  <div class="col-span-2 md:col-span-1">
+                    <label class="block text-gray-700 text-sm font-medium mb-2">Pilih Nama</label>
+                    <select
+                      v-model="formGuru.name"
+                      class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                      :disabled="!formGuru.room" 
+                    >
+                      <option disabled value="">-- Pilih Nama --</option>
+                      <option
+                        v-for="(name, index) in GuruList[formGuru.room] || []"
+                        :key="index"
+                        :value="name"
+                      >
+                        {{ name }}
+                      </option>
+                    </select>
+                  </div>
+                
+
+                    <!-- Username -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-username">
+                        Username
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-at text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-username" type="text" v-model="formGuru.username" placeholder="Contoh: johndoe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Username minimal 5 karakter</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-email">
+                        Email
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-email" type="email" v-model="formGuru.email" placeholder="Contoh: example@gmail.com">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Email akan digunakan untuk verifikasi dan notifikasi penting</p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-password">
+                        Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-password" type="password" v-model="formGuru.password" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Password minimal 8 karakter</p>
+                    </div>
+
+                    <!-- Konfirmasi Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-checkpassword">
+                        Konfirmasi Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-checkpassword" type="password" v-model="formGuru.checkpassword" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Pastikan password sama dengan di atas</p>
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-telephone">
+                        Nomor Telepon
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-phone text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-telephone" type="text" v-model="formGuru.phoneNumber" placeholder="Contoh: 08123456789">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
+                    </div>
+
+                    </div>
+
+                  <!-- Terms and Conditions -->
+                  <!-- <div class="mt-6 mb-8">
+                    <div class="flex items-start">
+                      <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" v-model="termsAccepted"
+                          class="h-4 w-4 text-[#5EA2EF] border-gray-300 rounded focus:ring-[#5EA2EF]">
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <label for="terms" class="text-gray-700">Saya menyetujui <a href="#"
+                            class="text-[#5EA2EF] hover:underline">syarat dan ketentuan</a> yang berlaku</label>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Submit Button -->
+                  <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <button type="submit" :disabled="isLoading"
+                      class="flex-1 py-3 px-6 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-white font-medium rounded-lg hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5EA2EF] flex justify-center items-center">
+                      <span v-if="isLoading" class="mr-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                          </path>
+                        </svg>
+                      </span>
+                      <span>{{ isLoading ? 'Memproses...' : 'Daftar Sekarang' }}</span>
+                    </button>
+                    <a href="/login"
+                      class="flex-1 py-3 px-6 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-center">
+                      Sudah Punya Akun
+                    </a>
+                  </div>
+                </form>
+              </div>
+              <div v-if="selectedRole === 'keluarga_siswa'">
+                <form id="registerForm" class="p-6" @submit.prevent="handleRegister">
+                  <!--
+                  <p class="text-gray-700 text-sm font-medium mb-2 mt-3" for="dokumen">Upload KK</p>
+                        <div class="w-full ">
+                          <div class="mx-auto mt-1 mb-2">
+                            <input type="file" id="dokumen" name="dokumen"  @change="handleFileChange('keluarga_siswa', $event)"
+                              class="w-full text-dark dark:text-white text-sm bg-white dark:bg-gray-700 border  dark:border-gray-600 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-white-1 dark:file:bg-gray-800 file:hover:brightness-150 file:text-black dark:file:text-white rounded-lg" />
+                          </div>                         
+                        </div>-->
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Nama Lengkap -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-first-name">
+                        Nama Lengkap
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-first-name" type="text" v-model="formKeluargaSiswa.name" placeholder="Contoh: John Doe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Harap masukkan nama yang valid</p>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-username">
+                        Username
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-at text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-username" type="text" v-model="formKeluargaSiswa.username" placeholder="Contoh: johndoe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Username minimal 5 karakter</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-email">
+                        Email
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-email" type="email" v-model="formKeluargaSiswa.email" placeholder="Contoh: example@gmail.com">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Email akan digunakan untuk verifikasi dan notifikasi penting</p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-password">
+                        Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-password" type="password" v-model="formKeluargaSiswa.password" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Password minimal 8 karakter</p>
+                    </div>
+
+                    <!-- Konfirmasi Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-checkpassword">
+                        Konfirmasi Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-checkpassword" type="password" v-model="formKeluargaSiswa.checkpassword" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Pastikan password sama dengan di atas</p>
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-telephone">
+                        Nomor Telepon
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-phone text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-telephone" type="text" v-model="formKeluargaSiswa.phoneNumber" placeholder="Contoh: 08123456789">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
+                    </div>
+
+                  
+                  </div>
+
+                  <!-- Terms and Conditions -->
+                  <!-- <div class="mt-6 mb-8">
+                    <div class="flex items-start">
+                      <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" v-model="termsAccepted"
+                          class="h-4 w-4 text-[#5EA2EF] border-gray-300 rounded focus:ring-[#5EA2EF]">
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <label for="terms" class="text-gray-700">Saya menyetujui <a href="#"
+                            class="text-[#5EA2EF] hover:underline">syarat dan ketentuan</a> yang berlaku</label>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Submit Button -->
+                  <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <button type="submit" :disabled="isLoading"
+                      class="flex-1 py-3 px-6 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-white font-medium rounded-lg hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5EA2EF] flex justify-center items-center">
+                      <span v-if="isLoading" class="mr-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                          </path>
+                        </svg>
+                      </span>
+                      <span>{{ isLoading ? 'Memproses...' : 'Daftar Sekarang' }}</span>
+                    </button>
+                    <a href="/login"
+                      class="flex-1 py-3 px-6 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-center">
+                      Sudah Punya Akun
+                    </a>
+                  </div>
+                  </form>
+              </div>
+              <div v-if="selectedRole === 'mahasiswa'">
+                <form id="registerForm" class="p-6" @submit.prevent="handleRegister">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Nama Lengkap -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-first-name">
+                        Nama Lengkap
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-first-name" type="text" v-model="formMahasiswa.name" placeholder="Contoh: John Doe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Harap masukkan nama yang valid</p>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-username">
+                        Username
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-at text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-username" type="text" v-model="formMahasiswa.username" placeholder="Contoh: johndoe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Username minimal 5 karakter</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-email">
+                        Email
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-email" type="email" v-model="formMahasiswa.email" placeholder="Contoh: example@gmail.com">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Email akan digunakan untuk verifikasi dan notifikasi penting</p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-password">
+                        Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-password" type="password" v-model="formMahasiswa.password" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Password minimal 8 karakter</p>
+                    </div>
+
+                    <!-- Konfirmasi Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-checkpassword">
+                        Konfirmasi Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-checkpassword" type="password" v-model="formMahasiswa.checkpassword" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Pastikan password sama dengan di atas</p>
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-telephone">
+                        Nomor Telepon
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-phone text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-telephone" type="text" v-model="formMahasiswa.phoneNumber" placeholder="Contoh: 08123456789">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
+                    </div>
+                  </div>
+
+                  <!-- Terms and Conditions -->
+                  <!-- <div class="mt-6 mb-8">
+                    <div class="flex items-start">
+                      <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" v-model="termsAccepted"
+                          class="h-4 w-4 text-[#5EA2EF] border-gray-300 rounded focus:ring-[#5EA2EF]">
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <label for="terms" class="text-gray-700">Saya menyetujui <a href="#"
+                            class="text-[#5EA2EF] hover:underline">syarat dan ketentuan</a> yang berlaku</label>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Submit Button -->
+                  <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <button type="submit" :disabled="isLoading"
+                      class="flex-1 py-3 px-6 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-white font-medium rounded-lg hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5EA2EF] flex justify-center items-center">
+                      <span v-if="isLoading" class="mr-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                          </path>
+                        </svg>
+                      </span>
+                      <span>{{ isLoading ? 'Memproses...' : 'Daftar Sekarang' }}</span>
+                    </button>
+                    <a href="/login"
+                      class="flex-1 py-3 px-6 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-center">
+                      Sudah Punya Akun
+                    </a>
+                  </div>
+                </form>
+              </div>
+              
+
+            </div>
+     
       </div>
+          
+        
+     
 
       <!-- OTP Verification Card -->
       <div v-if="formStep === 2" class="max-w-md w-full bg-white rounded-xl shadow-sm overflow-hidden mb-16">
@@ -311,8 +962,13 @@
               Masuk ke Akun
             </a>
           </div>
+          
         </div>
+      
       </div>
+      
+  
+        
 
     </main>
 
@@ -364,18 +1020,29 @@ import axios from 'axios';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+
 export default {
   name: 'RegisterPage',
   setup() {
     // Form state
     const formStep = ref(1);
-    const name = ref('');
-    const username = ref('');
-    const email = ref('');
-    const password = ref('');
-    const checkPassword = ref('');
-    const phoneNumber = ref('');
-    const role = ref('');
+    const selectedRole = ref(null);
+    const roomOptions = ref([]);
+    const GuruList = ref({});
+    const formPelajar = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
+    const formGuru = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
+    const formAlumni = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
+    const formMahasiswa= ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
+    const formKeluargaSiswa = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
+    const selectRole = (role) => {
+      if (!selectedRole.value) {
+        selectedRole.value = role
+      }
+    }
+    const fileData = ref({
+      alumni: null,
+      keluarga_siswa: null,
+    });
     const termsAccepted = ref(false);
 
     // OTP verification
@@ -400,6 +1067,28 @@ export default {
       const secs = seconds % 60;
       return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
     };
+
+    // Format kirim file
+    const handleFileChange = async (category, event) => {
+      const formData = new FormData();
+      const file = fileData.value[selectedRole.value];  
+      formData.append('dokumen', file);
+      formData.append('userId', userId);
+
+      try {
+        const apiUrl = import.meta.env.VITE_API_BASE;
+        const response = await axios.post(`${apiUrl}/api/send-dokumen`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
+        console.log("Dokumen berhasil diupload:", response.data);
+      } catch (error) {
+        console.error("Gagal mengupload dokumen:", error);
+      }   };
+
+
 
     // Start OTP timer
     const startTimer = () => {
@@ -428,15 +1117,59 @@ export default {
     // Handle registration form submission
     const handleRegister = async () => {
       // Basic validation
-      if (!name.value || !username.value || !email.value || !password.value || !checkPassword.value || !phoneNumber.value || !role.value) {
-        showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir!');
-        return;
-      }
+          if (selectedRole.value === 'pelajar') {
+            if (!formPelajar.value.name || !formPelajar.value.username || !formPelajar.value.email || !formPelajar.value.password || !formPelajar.value.checkpassword || !formPelajar.value.phoneNumber) {
+              showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir Siswa!');
+              return;
+            }
 
-      if (password.value !== checkPassword.value) {
-        showAlertMessage('error', 'Password Tidak Sama', 'Password dan konfirmasi password tidak cocok!');
-        return;
-      }
+            if (formPelajar.value.password !== formPelajar.value.checkpassword) {
+              showAlertMessage('error', 'Password Tidak Sama', 'Password dan konfirmasi password tidak cocok!');
+              return;
+            }
+
+          } else if (selectedRole.value === 'alumni') {
+            if (!formAlumni.value.name || !formAlumni.value.username || !formAlumni.value.email || !formAlumni.value.password || !formAlumni.value.checkpassword || !formAlumni.value.phoneNumber) {
+              showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir Guru!');
+              return;
+            }
+
+            if (formAlumni.value.password !== formAlumni.value.checkpassword) {
+              showAlertMessage('error', 'Password Tidak Sama', 'Password dan konfirmasi password tidak cocok!');
+              return;
+            }
+
+          } else if (selectedRole.value === 'guru') {
+            if (!formGuru.value.name || !formGuru.value.username || !formGuru.value.email || !formGuru.value.password || !formGuru.value.checkpassword || !formGuru.value.phoneNumber) {
+              showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir Guru!');
+              return;
+            }
+
+            if (formGuru.value.password !== formGuru.value.checkpassword) {
+              showAlertMessage('error', 'Password Tidak Sama', 'Password dan konfirmasi password tidak cocok!');
+              return;
+            } } else if (selectedRole.value === 'keluarga_siswa') {
+                if (!formKeluargaSiswa.value.name || !formKeluargaSiswa.value.username || !formKeluargaSiswa.value.email || !formKeluargaSiswa.value.password || !formKeluargaSiswa.value.checkpassword || !formKeluargaSiswa.value.phoneNumber) {
+                  showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir Keluarga Siswa!');
+                  return;
+                }
+
+                if (formKeluargaSiswa.value.password !== formKeluargaSiswa.value.checkpassword) {
+                  showAlertMessage('error', 'Password Tidak Sama', 'Password dan konfirmasi password tidak cocok!');
+                  return;
+                }
+
+              } else if (selectedRole.value === 'mahasiswa') {
+                if (!formMahasiswa.value.name || !formMahasiswa.value.username || !formMahasiswa.value.email || !formMahasiswa.value.password || !formMahasiswa.value.checkpassword || !formMahasiswa.value.phoneNumber) {
+                  showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir Mahasiswa!');
+                  return;
+                }
+
+                if (formMahasiswa.value.password !== formMahasiswa.value.checkpassword) {
+                  showAlertMessage('error', 'Password Tidak Sama', 'Password dan konfirmasi password tidak cocok!');
+                  return;
+                }
+              }
 
       // if (!termsAccepted.value) {
       //   showAlertMessage('error', 'Syarat dan Ketentuan', 'Harap setujui syarat dan ketentuan yang berlaku!');
@@ -444,32 +1177,92 @@ export default {
       // }
 
       isLoading.value = true;
+      let payload = {}
+      let userData = {}
 
-      try {
-        // Save user data to session storage
-        const userData = {
-          name: name.value,
-          username: username.value,
-          email: email.value,
-          phoneNumber: phoneNumber.value,
-          role: role.value
-        };
+        if (selectedRole.value === 'pelajar') {
+      payload = {
+        ...formPelajar.value,
+        role: 'pelajar'
+      };
 
+      userData = {
+        name: formPelajar.value.name,
+        username: formPelajar.value.username,
+        email: formPelajar.value.email,
+        phoneNumber: formPelajar.value.phoneNumber,
+        role: 'pelajar'
+      };
+
+    } else if (selectedRole.value === 'alumni') {
+      payload = {
+        ...formAlumni.value,
+        role: 'alumni'
+      };
+
+      userData = {
+        name: formAlumni.value.name,
+        username: formAlumni.value.username,
+        email: formAlumni.value.email,
+        phoneNumber: formAlumni.value.phoneNumber,
+        role: 'alumni'
+      };
+
+    } else if (selectedRole.value === 'guru') {
+      payload = {
+        ...formGuru.value,
+        role: 'guru'
+      };
+
+      userData = {
+        name: formGuru.value.name,
+        username: formGuru.value.username,
+        email: formGuru.value.email,
+        phoneNumber: formGuru.value.phoneNumber,
+        role: 'guru'
+      };
+
+    } else if (selectedRole.value === 'keluarga_siswa') {
+      payload = {
+        ...formKeluargaSiswa.value,
+        role: 'keluarga_siswa'
+      };
+
+      userData = {
+        name: formKeluargaSiswa.value.name,
+        username: formKeluargaSiswa.value.username,
+        email: formKeluargaSiswa.value.email,
+        phoneNumber: formKeluargaSiswa.value.phoneNumber,
+        role: 'keluarga_siswa'
+      };
+
+    } else if (selectedRole.value === 'mahasiswa') {
+      payload = {
+        ...formMahasiswa.value,
+        role: 'mahasiswa'
+      };
+
+      userData = {
+        name: formMahasiswa.value.name,
+        username: formMahasiswa.value.username,
+        email: formMahasiswa.value.email,
+        phoneNumber: formMahasiswa.value.phoneNumber,
+        role: 'mahasiswa'
+      };
+    }
+
+      try {     
         sessionStorage.setItem('userData', JSON.stringify(userData));
-
         // Send registration data to API
         const apiUrl = import.meta.env.VITE_API_BASE;
-        const response = await axios.post(`${apiUrl}/api/register`, {
-          name: name.value,
-          username: username.value,
-          email: email.value,
-          password: password.value,
-          checkpassword: checkPassword.value,
-          phoneNumber: phoneNumber.value,
-          role: role.value
-        });
+        const response = await axios.post(`${apiUrl}/api/register`, payload);
 
-        console.log('Registrasi sukses:', response.data);
+        const userId = response.data.userId;
+
+        // Kirim file dokumen jika ada
+        if (userId && fileData.value.dokumen) {
+          await handleFileChange(userId, fileData.value.dokumen); // Kirim file dokumen
+        }
 
         // Move to OTP verification step
         formStep.value = 2;
@@ -558,27 +1351,58 @@ export default {
     // Cleanup on component unmount
     onUnmounted(() => {
       clearInterval(timerInterval);
-    });
-
+      
+      }
+    );
+    
     // Initialize animation on mount
-    onMounted(() => {
+    onMounted(async () => {
       AOS.init({
         duration: 800,
         easing: 'ease-in-out',
         once: true
       });
-    });
+      try {
+          const res = await axios.get('https://api.sheetbest.com/sheets/42d559ab-7a40-4037-900d-fea798575c25') //
+          const data = res.data
 
+          const grouped = {}
+          const uniqueRooms = new Set()
+
+          data.forEach(entry => {
+            const ruangan = entry.Ruangan?.trim()
+            const nama = entry['Nama Guru']?.trim()
+
+            if (ruangan && nama) {
+              uniqueRooms.add(ruangan)
+              if (!grouped[ruangan]) {
+                grouped[ruangan] = []
+              }
+              grouped[ruangan].push(nama)
+            }
+          })
+
+          roomOptions.value = Array.from(uniqueRooms)
+          GuruList.value = grouped
+
+        } catch (err) {
+          console.error('Gagal ambil data dari GSheet:', err)
+        }
+    });
+    
     return {
       formStep,
-      name,
-      username,
-      email,
-      password,
-      checkPassword,
-      phoneNumber,
-      role,
+      selectedRole,
+      GuruList,
+      roomOptions,
+      formPelajar,
+      formAlumni,
+      formKeluargaSiswa,
+      formGuru,
+      formMahasiswa,
+      selectRole,
       termsAccepted,
+      handleFileChange,
       otpCode,
       timer,
       canResend,
@@ -594,7 +1418,20 @@ export default {
       formatTime,
       showAlertMessage
     };
+  },
+  methods: {
+    resetFormByRole(role) {
+      this.register = {
+      part_name: '',
+      name: '',
+      username: '',
+      email: '',
+      phone: '62',
+      password: '',
+      repassword: '',
+    };
   }
+}
 };
 </script>
 
