@@ -25,7 +25,7 @@
             </div>
             <div class="flex items-center">
               <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>Sportorium UMY</span>
+              <span>RRI Pro 2</span>
             </div>
           </div>
           <div class="md:w-2/3 p-6">
