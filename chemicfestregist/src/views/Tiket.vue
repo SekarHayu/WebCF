@@ -11,10 +11,10 @@
     <!-- Main Content -->
     <main class="flex flex-col items-center justify-center w-full max-w-md mx-auto p-6 relative">
       <!-- Header with golden ratio spacing -->
-      <!-- <div class="w-full mb-8 text-center">
+      <div class="w-full mb-8 text-center">
         <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#FF5F5F] to-[#D52C2C]">Chemicfest #9</h1>
         <p class="text-gray-600 mt-2">Pembelian Tiket</p>
-      </div> -->
+      </div> 
        <!-- Pop-up Modal for Document Verification -->
       <div v-if="showBlockModal && role === 'alumni'" class="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 flex items-center justify-center">
         <div class="bg-white rounded-lg p-6 shadow-lg w-96">
