@@ -25,7 +25,7 @@
             </div>
             <div class="flex items-center">
               <i class="fas fa-map-marker-alt mr-2"></i>
-              <span>RRI Pro 2</span>
+              <span>Sportorium UMY</span>
             </div>
           </div>
           <div class="md:w-2/3 p-6">
@@ -138,6 +138,19 @@
                       <span class="label-text pl-2">Mahasiswa</span>
                     </label>
                   </div>
+                  <div class="form-control my-auto">
+                    <label class="label cursor-pointer gap-2 justify-start">
+                      <input 
+    v-model="selectedRole" 
+    value="kelas12_13" 
+    type="radio" 
+    name="role" 
+    class="radio checked:bg-dark dark:checked:bg-white"
+    @change="console.log('ROLE BARU:', selectedRole)" 
+  />
+                      <span class="label-text pl-2">Kelas 12 & 13 SMTI</span>
+                    </label>
+                  </div>
                 </div>
                 </ul>
 
@@ -243,6 +256,145 @@
                         <input
                           class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
                           id="grid-telephone" type="text" v-model="formPelajar.phoneNumber" placeholder="Contoh: 08123456789">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
+                    </div>
+
+                    
+                  </div>
+
+                  <!-- Terms and Conditions -->
+                  <!-- <div class="mt-6 mb-8">
+                    <div class="flex items-start">
+                      <div class="flex items-center h-5">
+                        <input id="terms" type="checkbox" v-model="termsAccepted"
+                          class="h-4 w-4 text-[#5EA2EF] border-gray-300 rounded focus:ring-[#5EA2EF]">
+                      </div>
+                      <div class="ml-3 text-sm">
+                        <label for="terms" class="text-gray-700">Saya menyetujui <a href="#"
+                            class="text-[#5EA2EF] hover:underline">syarat dan ketentuan</a> yang berlaku</label>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <!-- Submit Button -->
+                  <div class="flex flex-col sm:flex-row gap-4 mt-6">
+                    <button type="submit" :disabled="isLoading"
+                      class="flex-1 py-3 px-6 bg-gradient-to-r from-[#5EA2EF] to-[#0072F5] text-white font-medium rounded-lg hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5EA2EF] flex justify-center items-center">
+                      <span v-if="isLoading" class="mr-2">
+                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                          <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                          </path>
+                        </svg>
+                      </span>
+                      <span>{{ isLoading ? 'Memproses...' : 'Daftar Sekarang' }}</span>
+                    </button>
+                    <a href="/login"
+                      class="flex-1 py-3 px-6 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all text-center">
+                      Sudah Punya Akun
+                    </a>
+                  </div>
+                </form>
+              </div>
+              <!-- Form untuk kelas 12&13 -->
+              <div v-if="selectedRole === 'kelas12_13'">
+                <form id="registerForm" class="p-6" @submit.prevent="handleRegister">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <!-- Nama Lengkap -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-first-name">
+                        Nama Lengkap
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-first-name" type="text" v-model="formKelas1213.name" placeholder="Contoh: John Doe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Harap masukkan nama yang valid</p>
+                    </div>
+
+                    <!-- Username -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-username">
+                        Username
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-at text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-username" type="text" v-model="formKelas1213.username" placeholder="Contoh: johndoe">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Username minimal 5 karakter</p>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-email">
+                        Email
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-envelope text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-email" type="email" v-model="formKelas1213.email" placeholder="Contoh: example@gmail.com">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Email akan digunakan untuk verifikasi dan notifikasi penting</p>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-password">
+                        Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-password" type="password" v-model="formKelas1213.password" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Password minimal 8 karakter</p>
+                    </div>
+
+                    <!-- Konfirmasi Password -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-checkpassword">
+                        Konfirmasi Password
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-lock text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-checkpassword" type="password" v-model="formKelas1213.checkpassword" placeholder="*****">
+                      </div>
+                      <p class="text-gray-500 text-xs mt-1">Pastikan password sama dengan di atas</p>
+                    </div>
+
+                    <!-- Nomor Telepon -->
+                    <div class="col-span-2 md:col-span-1">
+                      <label class="block text-gray-700 text-sm font-medium mb-2" for="grid-telephone">
+                        Nomor Telepon
+                      </label>
+                      <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <i class="fas fa-phone text-gray-400"></i>
+                        </div>
+                        <input
+                          class="appearance-none block w-full bg-gray-50 text-gray-700 border border-gray-200 rounded-lg py-3 px-4 pl-10 leading-tight focus:outline-none focus:bg-white focus:border-[#5EA2EF] transition-colors"
+                          id="grid-telephone" type="text" v-model="formKelas1213.phoneNumber" placeholder="Contoh: 08123456789">
                       </div>
                       <p class="text-gray-500 text-xs mt-1">Nomor aktif untuk informasi tiket</p>
                     </div>
@@ -1030,6 +1182,7 @@ export default {
     const roomOptions = ref([]);
     const GuruList = ref({});
     const formPelajar = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
+    const formKelas1213 = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
     const formGuru = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
     const formAlumni = ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
     const formMahasiswa= ref({ name: '', username: '', email: '', password: '', checkpassword: '', phoneNumber: '' });
@@ -1139,6 +1292,17 @@ export default {
               return;
             }
 
+          }  else if (selectedRole.value === 'kelas12_13') {
+            if (!formKelas1213.value.name || !formKelas1213.value.username || !formKelas1213.value.email || !formKelas1213.value.password || !formKelas1213.value.checkpassword || !formKelas1213.value.phoneNumber) {
+              showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir Guru!');
+              return;
+            }
+
+            if (formKelas1213.value.password !== formKelas1213.value.checkpassword) {
+              showAlertMessage('error', 'Password Tidak Sama', 'Password dan konfirmasi password tidak cocok!');
+              return;
+            }
+
           } else if (selectedRole.value === 'guru') {
             if (!formGuru.value.name || !formGuru.value.username || !formGuru.value.email || !formGuru.value.password || !formGuru.value.checkpassword || !formGuru.value.phoneNumber) {
               showAlertMessage('error', 'Data Tidak Lengkap', 'Harap lengkapi semua data dalam formulir Guru!');
@@ -1206,6 +1370,20 @@ export default {
         email: formAlumni.value.email,
         phoneNumber: formAlumni.value.phoneNumber,
         role: 'alumni'
+      };
+
+    } else if (selectedRole.value === 'kelas12_13') {
+      payload = {
+        ...formKelas1213.value,
+        role: 'kelas12_13'
+      };
+
+      userData = {
+        name: formKelas1213.value.name,
+        username: formKelas1213.value.username,
+        email: formKelas1213.value.email,
+        phoneNumber: formKelas1213.value.phoneNumber,
+        role: 'kelas12_13'
       };
 
     } else if (selectedRole.value === 'guru') {
@@ -1399,6 +1577,7 @@ export default {
       formAlumni,
       formKeluargaSiswa,
       formGuru,
+      formKelas1213,
       formMahasiswa,
       selectRole,
       termsAccepted,
