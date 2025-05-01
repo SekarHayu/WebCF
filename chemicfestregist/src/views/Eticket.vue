@@ -29,7 +29,7 @@
 
                 <div class="flex items-center gap-2">
                 <span class="text-xl">📍</span>
-                <p>GOR UMY, Jl. Brawijaya, Ngebel, Tamantirto, Kec. Kasihan, Kabupaten Bantul, DIY</p>
+                <p>RRI PRO 2 Yogyakarta</p>
                 </div>
 
           </div>
