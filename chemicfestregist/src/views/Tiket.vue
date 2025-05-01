@@ -42,6 +42,32 @@
         </div>
       </div>
 
+      <div v-if="showBlockModal && role === 'kelas12_13'" class="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white rounded-lg p-6 shadow-lg w-96">
+          <h2 class="text-xl font-semibold mb-4 text-center">Verifikasi Dokumen</h2>
+          <p class="mb-4 text-center">Untuk melanjutkan, silakan unggah kartu pelajar anda sebagai bukti siswa SMK SMTI Yogyakarta kelas 12 / 13.</p>
+
+          <!-- File upload form -->
+          <input type="file" @change="handleFileUpload" class="w-full text-dark dark:text-white text-sm bg-white dark:bg-gray-700 border  dark:border-gray-600 file:cursor-pointer cursor-pointer file:border-0 file:py-2.5 file:px-4 file:bg-white-1 dark:file:bg-gray-800 file:hover:brightness-150 file:text-black dark:file:text-white rounded-lg"  />
+
+          <!-- Submit Button -->
+          <button
+            @click="submitDocument"
+            :disabled="isLoading || !selectedFile"
+            class="bg-blue-500 text-white px-4 mx-28 flex py-2 rounded mt-4 disabled:bg-gray-400"
+          >
+            Upload  
+          </button>
+
+          <!-- Loading Spinner -->
+          <div v-if="isLoading" class="absolute inset-0 bg-gray-500 bg-opacity-50 flex items-center justify-center">
+            <svg class="w-16 h-16 animate-spin text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4V8m0 4v4m-4 0H8m4 0h4m-4-4h4m-4 0H8" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
       <div v-if="showBlockModal && role === 'keluarga_siswa'" class="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 flex items-center justify-center">
         <div class="bg-white rounded-lg p-6 shadow-lg w-96">
           <h2 class="text-xl font-semibold mb-4 text-center">Verifikasi Dokumen</h2>
@@ -557,7 +583,7 @@ async function buyTicket() {
       // Load Midtrans Snap
       const snapScript = document.createElement("script");
       snapScript.src = "https://app.midtrans.com/snap/snap.js";
-      snapScript.setAttribute("data-client-key", "Mid-client-RE6DmaCD9JsF11Mu");
+      snapScript.setAttribute("data-client-key", "SB-Mid-client-eM1rAxpZNCxa0W-q");
       snapScript.onload = () => {
         // Pastikan snap.js sudah terload sebelum melakukan pembayaran
         const transactionToken = sessionStorage.getItem("transactionToken");
@@ -647,7 +673,7 @@ onMounted(async () => {
   }
 
   // Role yang perlu diverifikasi
-  if (["alumni", "keluarga_siswa"].includes(role)) {
+  if (["alumni", "kelas12_13","keluarga_siswa"].includes(role)) {
     try {
       
       const apiUrl = import.meta.env.VITE_API_BASE
