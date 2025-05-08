@@ -673,19 +673,25 @@ onMounted(async () => {
   }
 
   // Role yang perlu diverifikasi
-  if (["alumni", "kelas12_13","keluarga_siswa"].includes(role)) {
-    try {
-      
-      const apiUrl = import.meta.env.VITE_API_BASE
-      const response = await axios.get(`${apiUrl}/api/all-request?userId=${userId}`);
-      const verificationData = response.data.data.find(item => item.userId === userId)
+  if (["alumni", "kelas12_13", "keluarga_siswa"].includes(role)) {
+  try {
+    const storedData = sessionStorage.getItem("userData");
+    const parsedData = storedData ? JSON.parse(storedData) : null;
+    const email = parsedData?.email;
+    const apiUrl = import.meta.env.VITE_API_BASE;
+    const response = await axios.get(`${apiUrl}/api/all-request`);
+    const dataArray = response.data.data || [];
 
-
-      // Kalau belum ada data verifikasi
-      if (!verificationData) {
-        showBlockModal.value = true;
-      }
-      console.log("Sudah pernah upload dokumen")
+    const verificationData = dataArray.find(
+      item => item.email.toLowerCase() === email.toLowerCase()
+    );
+    console.log("Found verificationData:", verificationData);
+    if (!verificationData || verificationData.status === undefined || verificationData.status === null) {
+      showBlockModal.value = true;
+    } else {
+      console.log("Sudah pernah upload dokumen atau sudah ada status");
+      showBlockModal.value = false;
+    }
     } catch (error) {
       console.warn("[INFO] Tidak ditemukan data verifikasi atau gagal fetch:", error);
       showBlockModal.value = true; // Anggap belum submit
