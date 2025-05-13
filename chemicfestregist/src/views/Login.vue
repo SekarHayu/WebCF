@@ -162,6 +162,7 @@ export default {
           // Simpan data ke Session Storage
           sessionStorage.setItem("userData", JSON.stringify({ 
             email, 
+            add_verified: response.data.userData.add_verified,
             userId: response.data.userData.id,
             role: response.data.userData.role,
             isLoggedIn: true, 
