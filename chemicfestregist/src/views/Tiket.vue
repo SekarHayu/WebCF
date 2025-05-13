@@ -678,15 +678,23 @@ onMounted(async () => {
     const storedData = sessionStorage.getItem("userData");
     const parsedData = storedData ? JSON.parse(storedData) : null;
     const email = parsedData?.email;
+    const addVerified = parsedData?.add_verified;
+    if (addVerified === true) {
+      console.log("User sudah add_verified, tidak perlu verifikasi lagi.");
+      showBlockModal.value = false;
+      return; // Keluar dari block ini
+    }
+    
     const apiUrl = import.meta.env.VITE_API_BASE;
     const response = await axios.get(`${apiUrl}/api/all-request`);
+
     const dataArray = response.data.data || [];
 
     const verificationData = dataArray.find(
       item => item.email.toLowerCase() === email.toLowerCase()
     );
     console.log("Found verificationData:", verificationData);
-    if (!verificationData || verificationData.status === undefined || verificationData.status === null) {
+    if ((!verificationData || verificationData.status === undefined || verificationData.status === null) && addVerified === false){
       showBlockModal.value = true;
     } else {
       console.log("Sudah pernah upload dokumen atau sudah ada status");
